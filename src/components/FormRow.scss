@@ -1,0 +1,121 @@
+@import '../scss/mixins.scss';
+.form-area {
+  background-color: #ebf5ff;
+  border-radius: 50px;
+  .form {
+    padding: 75px 78px;
+    @include forPhone {
+      padding: 20px 12px;
+    }
+    .input-field {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 30px;
+      .inp-label {
+        margin-bottom: 4px;
+        color: #000;
+        font-size: 20px;
+        font-weight: 500;
+        @include forPhone {
+          font-size: 16px;
+        }
+      }
+      .input-row {
+        height: 60px;
+        background-color: #fff;
+        border: 1px solid #cfcfcf;
+        border-radius: 20px;
+        padding: 30px;
+        font-size: 20px;
+      }
+    }
+    .checkbox-field {
+      margin-bottom: 30px;
+      .checkbox-wrapper {
+        .checkbox-area {
+          margin-bottom: 10px;
+          display: flex;
+          gap: 10px;
+          input[type='checkbox'] {
+            width: 27px;
+            height: 27px;
+          }
+          label {
+            font-size: 20px;
+            font-weight: 500;
+            @include forPhone {
+              font-size: 18px;
+            }
+          }
+          .other-inp {
+            padding-left: 4px;
+            border: none;
+            font-size: 20px;
+            border-bottom: 1px solid rgb(137, 137, 137);
+            outline: none;
+            display: block;
+          }
+        }
+      }
+      p {
+        font-size: 20px;
+        font-weight: 400;
+        margin-bottom: 10px;
+      }
+    }
+    .radio-field {
+      font-size: 20px;
+      margin-bottom: 72px;
+      @include forPhone {
+        font-size: 18px;
+      }
+      &__head {
+        font-weight: 400;
+        color: var(--font-black);
+        margin-bottom: 10px;
+      }
+      .radio-area {
+        margin-bottom: 10px;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        font-weight: 500;
+        @include forPhone {
+          margin-bottom: 19px;
+        }
+        input[type='radio'] {
+        }
+        .radio-label {
+          line-height: 194.523%;
+          @include forPhone {
+            line-height: 113.023%;
+          }
+        }
+      }
+    }
+    .btn-field {
+      text-align: right;
+
+      .form-btn {
+        cursor: pointer;
+        text-align: right;
+        padding: 10px 65px;
+        background-color: #2985e2;
+        color: var(--font-white);
+        border: none;
+        border-radius: 14px;
+        @include forPhone {
+          width: 100%;
+          text-align: center;
+        }
+        &__text {
+          font-size: 26px;
+          font-weight: 500;
+        }
+      }
+    }
+    .star {
+      color: red;
+    }
+  }
+}

@@ -1,0 +1,171 @@
+import React from 'react'
+import { useState } from 'react'
+
+const FormRow = () => {
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [mobileNumber, setMobileNumber] = useState('')
+  const [message, setMessage] = useState('')
+
+  let handleSubmit = async (e) => {
+    e.preventDefault()
+    try {
+      let res = await fetch('https://httpbin.org/post', {
+        method: 'POST',
+        body: JSON.stringify({
+          name: name,
+          email: email,
+          mobileNumber: mobileNumber,
+        }),
+      })
+      let resJson = await res.json()
+      if (res.status === 200) {
+        setName('')
+        setEmail('')
+        setMessage('User created successfully')
+      } else {
+        setMessage('Some error occured')
+      }
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  return (
+    <div className="form-area">
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          value={name}
+          placeholder="Name"
+          onChange={(e) => setName(e.target.value)}
+        />
+        <input
+          type="text"
+          value={email}
+          placeholder="Email"
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <input
+          type="text"
+          value={mobileNumber}
+          placeholder="Mobile Number"
+          onChange={(e) => setMobileNumber(e.target.value)}
+        />
+
+        <button type="submit">Create</button>
+
+        <div className="message">{message ? <p>{message}</p> : null}</div>
+      </form>
+    </div>
+  )
+}
+
+export default FormRow
+
+
+
+
+
+/////////
+   <div className="form-area">
+      <form className="form" onSubmit={handleSubmit}>
+        <div className="input-field">
+          <label className="inp-label" htmlFor="">
+            Email<span className="star">*</span>
+          </label>
+          <input type="email" className="input-row" required />
+        </div>
+        <div className="input-field">
+          <label className="inp-label" htmlFor="">
+            Ad və Soyad<span className="star">*</span>
+          </label>
+          <input type="text" className="input-row" required />
+        </div>
+        <div className="input-field">
+          <label className="inp-label" htmlFor="">
+            WhatsApp nömrəsi (sizinlə WhatsApp vasitəsilə əlaqə saxlanılacaq)
+            <span className="star">*</span>
+          </label>
+          <input type="text" className="input-row" required />
+        </div>
+        <div className="checkbox-field">
+          <p>
+            Animator peşəsinə aid bacarıqlarınızı qeyd edin:{' '}
+            <span className="star">*</span>
+          </p>
+          <div className="checkbox-wrapper">
+            {skills.map((skill) => {
+              return (
+                <div key={skill.id} className="checkbox-area">
+                  <input type="checkbox" />
+                  <label htmlFor="">{skill.name}</label>
+                </div>
+              )
+            })}
+
+            <div className="checkbox-area">
+              <input type="checkbox" />
+              <label htmlFor="">Other:</label>
+              {/* <input className="other-inp" type="text" /> */}
+            </div>
+          </div>
+        </div>
+        <div className="input-field">
+          <label className="inp-label" htmlFor="">
+            Animasiyaya aid başqa hansı təcrübəniz var? Məsələn, storyboarding,
+            rigging, modelling və s.<span className="star">*</span>
+          </label>
+          <input type="text" className="input-row" required />
+        </div>
+        <div className="input-field">
+          <label className="inp-label" htmlFor="">
+            Hansı proqramlarda işləyə bilirsiniz? Məsələn, Toon Boom, TVpaint,
+            Maya və s. <span className="star">*</span>
+          </label>
+          <input type="text" className="input-row" required />
+        </div>
+        <div className="input-field">
+          <label className="inp-label" htmlFor="">
+            Filmoqrafiya (varsa)
+          </label>
+          <input type="text" className="input-row" />
+        </div>
+        <div className="input-field">
+          <label className="inp-label" htmlFor="">
+            İşlədiyiniz animasiya nümunəsi (YouTube / Vimeo linki):
+            <span className="star">*</span>
+          </label>
+          <input type="text" className="input-row" required />
+        </div>
+        <div className="input-field">
+          <label className="inp-label" htmlFor="">
+            Showreel (varsa) (YouTube / Vimeo linki):
+          </label>
+          <input type="text" className="input-row" />
+        </div>
+        <div className="radio-field">
+          <p className="radio-field__head">
+            İngilis dili səviyyəniz<span className="star">*</span>
+          </p>
+          {levels.map((level) => {
+            return (
+              <div key={level.id} className="radio-area">
+                <input type="radio" />
+                <label className="radio-label">{level.name}</label>
+              </div>
+            )
+          })}
+
+          <div className="radio-area">
+            <input type="radio" />
+            <label htmlFor="">C2 Qabaqcıl səviyyə (Advanced Level)</label>
+          </div>
+        </div>
+        <div className="btn-field">
+          <button type="submit" className="form-btn">
+            <span className="form-btn__text">Göndər</span>
+          </button>
+        </div>
+      </form>
+    </div>
