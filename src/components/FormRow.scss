@@ -52,8 +52,8 @@
             border: none;
             font-size: 20px;
             border-bottom: 1px solid rgb(137, 137, 137);
+            background-color: #ebf5ff;
             outline: none;
-            display: block;
           }
         }
       }
@@ -84,6 +84,12 @@
           margin-bottom: 19px;
         }
         input[type='radio'] {
+          width: 27px;
+          height: 27px;
+          @include forPhone {
+            width: 15px;
+            height: 15px;
+          }
         }
         .radio-label {
           line-height: 194.523%;
@@ -118,4 +124,42 @@
       color: red;
     }
   }
+  .form-submit-message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .submit-box {
+      padding: 145px 341px;
+      text-align: center;
+      @include forPhone {
+        padding: 110px 100px;
+      }
+      img {
+        width: 100%;
+        margin-bottom: 28px;
+      }
+      .success {
+        font-size: 36px;
+        font-style: normal;
+        font-weight: 500;
+        @include forPhone {
+          font-size: 28px;
+        }
+      }
+    }
+  }
+}
+
+.err {
+  border: 2px solid red !important;
+}
+
+.valid-msg {
+  padding-top: 8px;
+  color: red;
+  text-transform: capitalize;
+}
+
+.border-red {
+  border-color: red !important;
 }
