@@ -1,5 +1,5 @@
 import React from 'react'
-import axios from 'axios'
+import axios from '../api/api'
 import { useState } from 'react'
 import { useEffect } from 'react'
 import Submit from '../assets/ico/submit.svg'
@@ -11,22 +11,19 @@ const FormRow = ({ onFormSubmit }) => {
   const [formSubmitted, setFormSubmitted] = useState(false)
   const [isChecked, setIsChecked] = useState(false)
   const [isValid, setIsValid] = useState()
+  const [selectedSkills, setSelectedSkills] = useState([])
 
-  let selectedSkills = []
-  const setSelectedSkills = (data) => {
-    selectedSkills = data
-  }
+  // const selectedSkills = []
+  // const setSelectedSkills = (data) => {
+  //   selectedSkills = data
+  // }
 
   const fetchData = async () => {
     try {
-      const skillResponse = await axios.get(
-        'http://backendtestapp.local:8080/api/animator-skill/select-list'
-      )
+      const skillResponse = await axios.get('/animator-skill/select-list')
       setSkills(skillResponse.data.data)
 
-      const levelResponse = await axios.get(
-        'http://backendtestapp.local:8080/api/english-level/select-list'
-      )
+      const levelResponse = await axios.get('/english-level/select-list')
       setLevels(levelResponse.data.data)
     } catch (error) {
       console.error('Data fetch error:', error)
@@ -37,13 +34,12 @@ const FormRow = ({ onFormSubmit }) => {
     fetchData()
   }, [])
 
-  const handleInput = (value) => {
-    console.log(value)
-    if (!selectedSkills.includes(value)) {
-      setSelectedSkills([...selectedSkills, value])
+  function handleInput(id) {
+    if (!selectedSkills.includes(id)) {
+      setSelectedSkills([...selectedSkills, id])
     } else {
       setSelectedSkills(
-        selectedSkills.filter((currentSkill) => currentSkill != value)
+        selectedSkills.filter((currentSkill) => currentSkill != id)
       )
     }
     console.log(selectedSkills)
@@ -51,12 +47,7 @@ const FormRow = ({ onFormSubmit }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-
     const formData = new FormData(e.target)
-
-    if (otherSkill.trim().length > 0) {
-      selectedSkills.push(otherSkill)
-    }
 
     const data = {
       animator_skills: selectedSkills,
@@ -66,22 +57,23 @@ const FormRow = ({ onFormSubmit }) => {
       Object.assign(data, data, { [name]: value })
     }
 
-    try {
-      const response = await axios.post(
-        'http://backendtestapp.local:8080/api/animator-appeal',
-        data
-      )
+    if (otherSkill.trim().length > 0) {
+      if (isChecked) {
+        selectedSkills.push(otherSkill)
+      }
+    }
 
+    try {
+      const response = await axios.post('animator-appeal', data)
       setFormSubmitted(true)
       console.log('Form submit oldu!', response.data)
+      if (typeof onFormSubmit === 'function') {
+        onFormSubmit()
+      }
     } catch (error) {
       setIsValid(error.response.data.data)
       setFormSubmitted(false)
       console.error('Form submit olunmadı:', error)
-    }
-
-    if (typeof onFormSubmit === 'function') {
-      onFormSubmit()
     }
   }
 
@@ -162,11 +154,8 @@ const FormRow = ({ onFormSubmit }) => {
                 <input
                   type="checkbox"
                   id="otherSkill"
-                  // name="skill"
-                  // value="Other"
                   className="other-box"
                   onChange={(e) => {
-                    setOtherSkill(e.target.value)
                     setIsChecked(e.target.checked)
                   }}
                 />
@@ -174,7 +163,11 @@ const FormRow = ({ onFormSubmit }) => {
                 <label htmlFor="otherSkill">Other:</label>
                 {isChecked && (
                   <input
-                    onChange={(e) => setOtherSkill(e.target.value)}
+                    onChange={
+                      isChecked
+                        ? (e) => setOtherSkill(e.target.value)
+                        : () => {}
+                    }
                     className="other-inp"
                     type="text"
                   />

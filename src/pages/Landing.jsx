@@ -2,15 +2,15 @@ import { useState } from 'react'
 import FormRow from '../components/FormRow'
 
 const Landing = () => {
-  const [showHeadBox, setShowHeadBox] = useState(true)
+  const [showHeadBox, setShowHeadBox] = useState(false)
 
   const hideHeadBox = () => {
-    setShowHeadBox(false)
+    setShowHeadBox(true)
   }
   return (
     <main className="landing">
       <div className="container">
-        {showHeadBox && (
+        {!showHeadBox && (
           <div className="head-box">
             <h1 className="heading">
               “Animator’s Accelerator”
