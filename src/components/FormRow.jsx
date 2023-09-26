@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { useEffect } from 'react'
 import Submit from '../assets/ico/submit.svg'
 
-const FormRow = () => {
+const FormRow = ({ onFormSubmit }) => {
   const [skills, setSkills] = useState([])
   const [levels, setLevels] = useState([])
   const [otherSkill, setOtherSkill] = useState('')
@@ -78,6 +78,10 @@ const FormRow = () => {
       setIsValid(error.response.data.data)
       setFormSubmitted(false)
       console.error('Form submit olunmadı:', error)
+    }
+
+    if (typeof onFormSubmit === 'function') {
+      onFormSubmit()
     }
   }
 
@@ -158,7 +162,7 @@ const FormRow = () => {
                 <input
                   type="checkbox"
                   id="otherSkill"
-                  name="skills"
+                  // name="skill"
                   // value="Other"
                   className="other-box"
                   onChange={(e) => {
@@ -169,7 +173,11 @@ const FormRow = () => {
 
                 <label htmlFor="otherSkill">Other:</label>
                 {isChecked && (
-                  <input className="other-inp" type="text" name="" id="" />
+                  <input
+                    onChange={(e) => setOtherSkill(e.target.value)}
+                    className="other-inp"
+                    type="text"
+                  />
                 )}
               </div>
               {isValid?.animator_skills && (
