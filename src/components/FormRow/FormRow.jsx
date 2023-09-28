@@ -1,8 +1,8 @@
 import React from 'react'
-import axios from '../api/api'
+import axios from '../../api/api'
 import { useState } from 'react'
 import { useEffect } from 'react'
-import Submit from '../assets/ico/submit.svg'
+import Submit from '../../assets/ico/submit.svg'
 
 const FormRow = ({ onFormSubmit }) => {
   const [skills, setSkills] = useState([])
@@ -12,11 +12,6 @@ const FormRow = ({ onFormSubmit }) => {
   const [isChecked, setIsChecked] = useState(false)
   const [isValid, setIsValid] = useState()
   const [selectedSkills, setSelectedSkills] = useState([])
-
-  // const selectedSkills = []
-  // const setSelectedSkills = (data) => {
-  //   selectedSkills = data
-  // }
 
   const fetchData = async () => {
     try {
@@ -110,7 +105,7 @@ const FormRow = ({ onFormSubmit }) => {
               type="text"
               id="fullName"
               name="name_surname"
-              className={`input-row ${isValid?.email ? 'err' : ''}`}
+              className={`input-row ${isValid?.name_surname ? 'err' : ''}`}
             />
             {isValid?.name_surname && (
               <span className="valid-msg">{...isValid?.name_surname}</span>
@@ -125,7 +120,7 @@ const FormRow = ({ onFormSubmit }) => {
               type="text"
               id="whatsappNumber"
               name="wp_phone"
-              className={`input-row ${isValid?.email ? 'err' : ''}`}
+              className={`input-row ${isValid?.wp_phone ? 'err' : ''}`}
             />
             {isValid?.wp_phone && (
               <span className="valid-msg">{...isValid?.wp_phone}</span>
@@ -188,7 +183,9 @@ const FormRow = ({ onFormSubmit }) => {
               type="text"
               id="experience"
               name="animation_experience"
-              className={`input-row ${isValid?.email ? 'err' : ''}`}
+              className={`input-row ${
+                isValid?.animation_experience ? 'err' : ''
+              }`}
             />
             {isValid?.animation_experience && (
               <span className="valid-msg">
@@ -205,7 +202,7 @@ const FormRow = ({ onFormSubmit }) => {
               type="text"
               id="programs"
               name="program"
-              className={`input-row ${isValid?.email ? 'err' : ''}`}
+              className={`input-row ${isValid?.program ? 'err' : ''}`}
             />
             {isValid?.program && (
               <span className="valid-msg">{...isValid?.program}</span>
@@ -231,7 +228,7 @@ const FormRow = ({ onFormSubmit }) => {
               type="text"
               id="animationSample"
               name="animation_example"
-              className={`input-row ${isValid?.email ? 'err' : ''}`}
+              className={`input-row ${isValid?.animation_example ? 'err' : ''}`}
             />
             {isValid?.animation_example && (
               <span className="valid-msg">{...isValid?.animation_example}</span>
@@ -263,7 +260,7 @@ const FormRow = ({ onFormSubmit }) => {
                     id={`level_${level.id}`}
                     name="english_level"
                     value={level.id}
-                    className={isValid ? 'border-red' : ''}
+                    className={isValid?.english_level ? 'border-red' : ''}
                   />
                   <label htmlFor={`level_${level.id}`} className="radio-label">
                     {level.name}

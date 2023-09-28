@@ -1,11 +1,11 @@
 @import '../scss/mixins.scss';
 .form-area {
-  background-color: #ebf5ff;
+  background-color: #f6f6f6;
   border-radius: 50px;
   .form {
     padding: 75px 78px;
     @include forPhone {
-      padding: 20px 12px;
+      padding: 30px 20px;
     }
     .input-field {
       display: flex;
@@ -152,16 +152,13 @@
   }
 }
 
-.err {
-  border: 2px solid red !important;
-}
-
 .valid-msg {
   padding-top: 8px;
   color: red;
   text-transform: capitalize;
+  font-weight: 500;
 }
 
-.border-red {
-  border-color: red !important;
+.err {
+  border: 2px solid red !important;
 }
