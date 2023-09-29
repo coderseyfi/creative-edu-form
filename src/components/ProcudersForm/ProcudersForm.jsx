@@ -12,7 +12,7 @@ const ProcudersForm = ({ onFormSubmit }) => {
 
   const handleChange = (e) => {
     setText(e.target.value)
-    e.target.style.height = '60px' 
+    e.target.style.height = '60px'
     e.target.style.height = `${e.target.scrollHeight}px`
   }
 
@@ -169,9 +169,7 @@ const ProcudersForm = ({ onFormSubmit }) => {
           </div>
 
           <div className="radio-field">
-            <p className="radio-field__head">
-              İngilis dili səviyyəniz (vacib deyil)
-            </p>
+            <p className="radio-field__head">İngilis dili səviyyəniz</p>
             {levels.map((level) => {
               return (
                 <div key={level.id} className="radio-area">
@@ -187,6 +185,9 @@ const ProcudersForm = ({ onFormSubmit }) => {
                 </div>
               )
             })}
+            {isValid?.english_level && (
+              <span className="valid-msg">{...isValid?.english_level}</span>
+            )}
           </div>
           <div className="btn-field">
             <button type="submit" className="form-btn">
