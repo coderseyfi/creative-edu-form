@@ -7,6 +7,7 @@
     @include forPhone {
       padding: 30px 20px;
     }
+
     .input-field {
       display: flex;
       flex-direction: column;
@@ -27,6 +28,13 @@
         border-radius: 20px;
         padding: 30px;
         font-size: 20px;
+      }
+      textarea {
+        resize: none;
+        min-height: 90px;
+        overflow: hidden;
+        padding: 30px !important;
+        font-family: inherit;
       }
     }
     .checkbox-field {
@@ -53,8 +61,8 @@
             border: none;
             font-size: 20px;
             border-bottom: 1px solid rgb(137, 137, 137);
-            background-color: #ebf5ff;
             outline: none;
+            background-color: #f6f6f6;
           }
         }
       }

@@ -17,6 +17,9 @@
       font-weight: 800;
       line-height: 106.023%;
       letter-spacing: 0.518px;
+      @include forPhone {
+        font-size: 45px;
+      }
     }
   }
 
@@ -26,7 +29,10 @@
     gap: 6.375rem;
     align-items: center;
     margin-bottom: 7.625rem;
-
+    @include screen-xs {
+      gap: 30px;
+      flex-wrap: wrap;
+    }
     &__info {
       display: flex;
       align-items: center;
@@ -36,6 +42,9 @@
         color: var(--font-black);
         font-size: 26px;
         font-weight: 300;
+        @include screen-xs {
+          font-size: 22px;
+        }
       }
     }
   }
@@ -44,7 +53,11 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
+    justify-content: center;
     column-gap: 30px;
+    @include forPhone {
+      row-gap: 30px;
+    }
     &__link {
       width: 235px;
       transition: 0.2s;
@@ -57,6 +70,12 @@
       align-items: center;
       flex-direction: column;
       gap: 14px;
+      @include screen-xs {
+        width: 100%;
+      }
+      @include forTablet {
+        width: 50%;
+      }
       &__text {
         color: var(--font-black);
         text-align: center;

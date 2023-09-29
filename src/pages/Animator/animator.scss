@@ -3,8 +3,14 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  min-height: 100vh;
   width: 100%;
+  position: relative;
+  height: 100vh;
+
+  @include screen-xs {
+    background-size: cover;
+    height: 40vh;
+  }
 }
 
 .animator {
@@ -18,6 +24,9 @@
 .container-d {
   max-width: 1560px;
   margin: 0 auto;
+  @include forPhone {
+    padding: 50px 30px;
+  }
 }
 
 .head-box {

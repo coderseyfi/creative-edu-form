@@ -8,6 +8,13 @@ const ProcudersForm = ({ onFormSubmit }) => {
   const [levels, setLevels] = useState([])
   const [formSubmitted, setFormSubmitted] = useState(false)
   const [isValid, setIsValid] = useState()
+  const [text, setText] = useState('')
+
+  const handleChange = (e) => {
+    setText(e.target.value)
+    e.target.style.height = '60px' 
+    e.target.style.height = `${e.target.scrollHeight}px`
+  }
 
   const fetchData = async () => {
     try {
@@ -119,10 +126,8 @@ const ProcudersForm = ({ onFormSubmit }) => {
               name="education"
               className={`input-row ${isValid?.education ? 'err' : ''}`}
             />
-            {isValid?.animation_experience && (
-              <span className="valid-msg">
-                {...isValid?.animation_experience}
-              </span>
+            {isValid?.education && (
+              <span className="valid-msg">{...isValid?.education}</span>
             )}
           </div>
           <div className="input-field">
@@ -135,6 +140,7 @@ const ProcudersForm = ({ onFormSubmit }) => {
               id="film_experience"
               name="film_experience"
               className={`input-row`}
+              onChange={handleChange}
             />
           </div>
           <div className="input-field">
@@ -146,22 +152,20 @@ const ProcudersForm = ({ onFormSubmit }) => {
               id="filmography"
               name="filmoqrafiya"
               className="input-row"
+              onChange={handleChange}
+              row="1"
             />
           </div>
           <div className="input-field">
             <label className="inp-label" htmlFor="film_example">
-              Hazırda işlədiyiniz kino layihəsi (varsa) (YouTube / Vimeo linki)
-              :<span className="star">*</span>
+              Hazırda işlədiyiniz kino layihəsi (varsa) (YouTube / Vimeo linki):
             </label>
             <input
               type="text"
               id="film_example"
               name="film_example"
-              className={`input-row ${isValid?.film_example ? 'err' : ''}`}
+              className={`input-row`}
             />
-            {isValid?.film_example && (
-              <span className="valid-msg">{...isValid?.film_example}</span>
-            )}
           </div>
 
           <div className="radio-field">

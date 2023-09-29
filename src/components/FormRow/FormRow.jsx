@@ -12,6 +12,13 @@ const FormRow = ({ onFormSubmit }) => {
   const [isChecked, setIsChecked] = useState(false)
   const [isValid, setIsValid] = useState()
   const [selectedSkills, setSelectedSkills] = useState([])
+  const [text, setText] = useState('')
+
+  const handleChange = (e) => {
+    setText(e.target.value)
+    e.target.style.height = '60px'
+    e.target.style.height = `${e.target.scrollHeight}px`
+  }
 
   const fetchData = async () => {
     try {
@@ -212,11 +219,12 @@ const FormRow = ({ onFormSubmit }) => {
             <label className="inp-label" htmlFor="filmography">
               Filmoqrafiya (varsa)
             </label>
-            <input
+            <textarea
               type="text"
               id="filmography"
               name="filmoqrafiya"
               className="input-row"
+              onChange={handleChange}
             />
           </div>
           <div className="input-field">
@@ -224,8 +232,9 @@ const FormRow = ({ onFormSubmit }) => {
               İşlədiyiniz animasiya nümunəsi (YouTube / Vimeo linki):
               <span className="star">*</span>
             </label>
-            <input
+            <textarea
               type="text"
+              onChange={handleChange}
               id="animationSample"
               name="animation_example"
               className={`input-row ${isValid?.animation_example ? 'err' : ''}`}
@@ -238,8 +247,9 @@ const FormRow = ({ onFormSubmit }) => {
             <label className="inp-label" htmlFor="showreel">
               Showreel (varsa) (YouTube / Vimeo linki):
             </label>
-            <input
+            <textarea
               type="text"
+              onChange={handleChange}
               id="showreel"
               name="showreel"
               className="input-row"

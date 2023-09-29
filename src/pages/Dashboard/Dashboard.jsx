@@ -5,6 +5,8 @@ import './dashboard.scss'
 import { DUMMY_DASHBOARD } from '../../constants/constant'
 
 const Dashboard = () => {
+
+  
   return (
     <section className="dashboard">
       <div className="container-d">
