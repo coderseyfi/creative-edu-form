@@ -26,7 +26,9 @@ export const DUMMY_DASHBOARD = [
     {
         id: 4,
         ico: Theater,
-        text: 'Komediya Məktəbi'
+        text: 'Komediya Məktəbi',
+        to: '/comedia',
+
     },
     {
         id: 5,
@@ -36,6 +38,7 @@ export const DUMMY_DASHBOARD = [
     {
         id: 6,
         ico: Console,
-        text: 'Oyun Tərtibatçılar Emelatxanası'
+        text: 'Oyun Tərtibatçılar Emelatxanası',
+        to: '/game',
     },
 ]
