@@ -15,19 +15,19 @@ export const DUMMY_DASHBOARD = [
         id: 2,
         ico: Motion,
         text: 'Animatorların Akselerasiyası',
-        to: '/animator',
+        // to: '/animator',
     },
     {
         id: 3,
         ico: Calendar,
         text: 'Producers Elevator',
-        to: '/procuders',
+        // to: '/procuders',
     },
     {
         id: 4,
         ico: Theater,
-        text: 'Komediya Məktəbi',
-        to: '/comedia',
+        text: 'Komediya və Performans məktəbi',
+        // to: '/comedia',
 
     },
     {
@@ -39,6 +39,6 @@ export const DUMMY_DASHBOARD = [
         id: 6,
         ico: Console,
         text: 'Oyun Tərtibatçılar Emelatxanası',
-        to: '/game',
+        // to: '/game',
     },
 ]

@@ -15,7 +15,7 @@ const Animator = () => {
   return (
     <>
       <Hero img={imgUrl} />
-      <section className="animator">
+      <div className="animator">
         <div className="container">
           {!showHeadBox && (
             <div className="head-box">
@@ -55,13 +55,15 @@ const Animator = () => {
                   Studiyası tərəfindən təşkil olunur.
                 </p>
                 <br />
-                <p>Təlimdə iştirak üçün ödəniş tələb olunmur.</p>
+                <p className="bold-text">
+                  Təlimdə iştirak üçün ödəniş tələb olunmur.
+                </p>
               </div>
             </div>
           )}
           <FormRow onFormSubmit={hideHeadBox} />
         </div>
-      </section>
+      </div>
     </>
   )
 }

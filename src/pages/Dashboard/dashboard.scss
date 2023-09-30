@@ -8,6 +8,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 
   .up {
     margin-bottom: 50px;
@@ -24,10 +25,6 @@
   }
 
   .mid {
-    display: flex;
-    justify-content: space-between;
-    gap: 6.375rem;
-    align-items: center;
     margin-bottom: 7.625rem;
     @include screen-xs {
       gap: 30px;
@@ -59,8 +56,10 @@
       row-gap: 30px;
     }
     &__link {
+      transition: 0.5s;
       width: 235px;
       transition: 0.2s;
+      padding: 0 4px;
       height: 235px;
       border-radius: 20px;
       border: 2px solid #9d9d9d;
@@ -69,6 +68,7 @@
       justify-content: center;
       align-items: center;
       flex-direction: column;
+      cursor: pointer;
       gap: 14px;
       @include screen-xs {
         width: 100%;
@@ -84,9 +84,12 @@
       }
     }
     &__link:hover {
-      border-color: var(--font-black);
-      transition: 0.2s;
-      font-weight: 500;
+      transform: translateY(-10px);
+      transition: 0.5s;
     }
+  }
+
+  .no-click {
+    pointer-events: none;
   }
 }

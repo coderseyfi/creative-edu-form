@@ -1,18 +1,14 @@
 @import '../../scss/mixins.scss';
-.landing {
+.img-box {
   position: relative;
   img {
     width: 100%;
     height: auto;
+    border-radius: 87px;
+    @include screen-xs {
+      border-radius: 50px;
+    }
   }
-}
-
-.animator {
-  background-image: url('../../assets/images/bg-dash.png');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-  background-attachment: fixed;
 }
 
 .container-d {

@@ -35,6 +35,15 @@ const Game = () => {
                   ideyadan məhsulun hazırlanması prosesinə qədər olan
                   mərhələlərdə mentorluq dəstəyi verir.
                 </p>
+                <br />
+                <p className="text">
+                  Oyun Tərtibatçıları Emalatxanası müxtəlif təhsil və inkubasiya
+                  proqramları vasitəsi ilə yerli oyun tərtibatçılarının bilik və
+                  bacarıqlarının artırılmasına tövhə verir, oyun tərtibatçıları
+                  arasından öz oyun startapları yaratmatmaq istəyən komandalara
+                  ideyadan məhsulun hazırlanması prosesinə qədər olan
+                  mərhələlərdə mentorluq dəstəyi verir.
+                </p>
               </div>
             </div>
           )}
