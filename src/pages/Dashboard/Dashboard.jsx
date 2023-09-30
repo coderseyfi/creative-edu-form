@@ -7,6 +7,8 @@ import Procuders from '../Procuders/Procuders'
 import Modal from '../../components/Modal/Modal'
 import Comedia from '../../pages/Comedia/Comedia'
 import Game from '../../pages/Game/Game'
+import Music from '../Music/Music'
+import Graphic from '../Graphic/Graphic'
 
 const Dashboard = () => {
   const [openModalId, setOpenModalId] = useState(null)
@@ -20,11 +22,11 @@ const Dashboard = () => {
   }
 
   const modalContent = {
-    // 1: <Animator />,
+    1: <Music />,
     2: <Animator />,
     3: <Procuders />,
     4: <Comedia />,
-    // 4: <Comedia />,
+    5: <Graphic />,
     6: <Game />,
   }
 
@@ -48,9 +50,7 @@ const Dashboard = () => {
             return (
               <div
                 key={id}
-                className={`bottom__link ${
-                  id === 1 || id === 5 ? 'no-click' : ''
-                }`}
+                className="bottom__link"
                 onClick={() => openModal(id)}
               >
                 <img src={ico} alt="" />
