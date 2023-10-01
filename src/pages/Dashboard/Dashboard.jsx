@@ -42,11 +42,20 @@ const Dashboard = () => {
         </div>
         <div className="mid">
           <div className="mid__info">
-            <img src={DashLine} alt="" />
-            <p className="mid__info__text">
-              Əsas meyarlar: Rəsmi sertifikatlaşma, işlə təmin olunma, 8 həftə
-              davamlılıq, Xarici ekspertlərin mentorluğu
-            </p>
+            <div className="">
+              <img src={DashLine} alt="" />
+              <p className="mid__info__text">
+                Əsas meyarlar: Rəsmi sertifikatlaşma, işlə təmin olunma, 8 həftə
+                davamlılıq, Xarici ekspertlərin mentorluğu
+              </p>
+            </div>
+            <div className="">
+              <img src={DashLine} alt="" />
+              <p className="mid__info__text">
+                Bacarıqların artırılması proqramları Yaradıcı Sənayelər
+                Qovşağında <i>(CreativeHub)</i> həyata keçiriləcəkdir.
+              </p>
+            </div>
           </div>
         </div>
         <div className="bottom">

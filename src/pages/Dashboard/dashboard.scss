@@ -26,14 +26,26 @@
 
   .mid {
     margin-bottom: 7.625rem;
-    @include screen-xs {
-      gap: 30px;
-      flex-wrap: wrap;
-    }
+
     &__info {
       display: flex;
+
       align-items: center;
-      column-gap: 20px;
+      gap: 20px;
+
+      @include screen-xs {
+        gap: 30px;
+        flex-wrap: wrap;
+      }
+
+      div {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        i {
+          font-weight: bold;
+        }
+      }
 
       &__text {
         color: var(--font-black);
