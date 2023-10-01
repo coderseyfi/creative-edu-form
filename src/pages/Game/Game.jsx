@@ -19,30 +19,15 @@ const Game = () => {
         <div className="container">
           {!showHeadBox && (
             <div className="head-box">
-              <h1 className="heading">
-                Oyun Tərtibatçıları Emalatxanası
-                <br />
-                <span className="heading-thin">
-                  təlim proqramına qəbul başladı
-                </span>
-              </h1>
+              <h1 className="heading">Oyun Tərtibatçıları Emalatxanası</h1>
               <div className="text-area">
                 <p className="text">
                   Oyun Tərtibatçıları Emalatxanası müxtəlif təhsil və inkubasiya
                   proqramları vasitəsi ilə yerli oyun tərtibatçılarının bilik və
-                  bacarıqlarının artırılmasına tövhə verir, oyun tərtibatçıları
-                  arasından öz oyun startapları yaratmatmaq istəyən komandalara
-                  ideyadan məhsulun hazırlanması prosesinə qədər olan
-                  mərhələlərdə mentorluq dəstəyi verir.
-                </p>
-                <br />
-                <p className="text">
-                  Oyun Tərtibatçıları Emalatxanası müxtəlif təhsil və inkubasiya
-                  proqramları vasitəsi ilə yerli oyun tərtibatçılarının bilik və
-                  bacarıqlarının artırılmasına tövhə verir, oyun tərtibatçıları
-                  arasından öz oyun startapları yaratmatmaq istəyən komandalara
-                  ideyadan məhsulun hazırlanması prosesinə qədər olan
-                  mərhələlərdə mentorluq dəstəyi verir.
+                  bacarıqlarının artırılmasına tövhə verir, onlar arasında öz
+                  oyun startaplarını yaratmaq istəyən komandalara ideyadan
+                  məhsulun hazırlanması prosesinə qədər olan mərhələlərdə
+                  mentorluq dəstəyi verir.
                 </p>
               </div>
             </div>

@@ -19,13 +19,7 @@ const Music = () => {
         <div className="container">
           {!showHeadBox && (
             <div className="head-box">
-              <h1 className="heading">
-                Musiqi Sənayesi Akademiyası
-                <br />
-                {/* <span className="heading-thin">
-                  təlim proqramına qəbul başladı
-                </span> */}
-              </h1>
+              <h1 className="heading">Musiqi Sənayesi Akademiyası</h1>
               <div className="text-area"></div>
             </div>
           )}

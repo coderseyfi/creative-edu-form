@@ -19,13 +19,7 @@ const Graphic = () => {
         <div className="container">
           {!showHeadBox && (
             <div className="head-box">
-              <h1 className="heading">
-                Qrafik Dizaynda Milli kod
-                <br />
-                {/* <span className="heading-thin">
-                  təlim proqramına qəbul başladı
-                </span> */}
-              </h1>
+              <h1 className="heading">Qrafik Dizaynda Milli Kod</h1>
               <div className="text-area"></div>
             </div>
           )}
