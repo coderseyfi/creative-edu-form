@@ -43,6 +43,10 @@
   }
   .text-area {
     margin-bottom: 53px;
+    @include screen-xs {
+      margin-bottom: 20px;
+      text-align: center;
+    }
     .text {
       font-size: 18px;
       font-weight: 400;

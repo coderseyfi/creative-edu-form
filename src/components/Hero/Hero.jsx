@@ -2,8 +2,6 @@ import React from 'react'
 import './scroll.scss'
 
 const Hero = ({ img }) => {
-  console.log(img)
-
   return (
     <div className="img-box">
       <img src={img} alt="" />

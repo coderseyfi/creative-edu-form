@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import DashLine from '../../assets/ico/dashLine.svg'
 import './dashboard.scss'
 import { DUMMY_DASHBOARD } from '../../constants/constant'
@@ -15,6 +15,10 @@ const Dashboard = () => {
 
   const openModal = (id) => {
     setOpenModalId(id)
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    })
   }
 
   const closeModal = () => {

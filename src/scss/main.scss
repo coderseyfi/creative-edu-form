@@ -13,6 +13,7 @@
 body {
   font-family: 'Inter', sans-serif;
   // position: relative;
+  scroll-behavior: smooth !important;
 }
 
 ::selection {
@@ -32,6 +33,6 @@ body {
 
   @include forPhone {
     padding-top: 7.75rem; //124px
-    padding: 0 20px;
+    padding: 0 10px;
   }
 }
