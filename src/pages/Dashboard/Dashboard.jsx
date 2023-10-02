@@ -38,7 +38,9 @@ const Dashboard = () => {
     <section className="dashboard">
       <div className="container-d">
         <div className="up">
-          <h1 className="up__title">MYS üzrə tədris və inkubasiya mərkəzi</h1>
+          <h1 className="up__title">
+            MYS üzrə tədris proqramlarına qoşulmaq üçün qeydiyyat
+          </h1>
         </div>
         <div className="mid">
           <div className="mid__info">
