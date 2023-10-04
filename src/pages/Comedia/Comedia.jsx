@@ -3,6 +3,7 @@ import FormRow from '../../components/FormRow/FormRow'
 import Hero from '../../components/Hero/Hero'
 import '../Animator/animator.scss'
 import ComediaBg from '../../assets/images/Comedy.jpg'
+import ComedyForm from '../../components/ComedyForm/ComdeyForm'
 
 const Comedia = () => {
   const [showHeadBox, setShowHeadBox] = useState(false)
@@ -37,7 +38,7 @@ const Comedia = () => {
               </div>
             </div>
           )}
-          {/* <FormRow onFormSubmit={hideHeadBox} /> */}
+          <ComedyForm onFormSubmit={hideHeadBox} />
         </div>
       </section>
     </>
