@@ -67,7 +67,7 @@ const ProcudersForm = ({ onFormSubmit }) => {
         <div className="form-submit-message">
           <div className="submit-box">
             <img src={Submit} alt="" />
-            <p className="success">Uğurlu göndərildi</p>
+            <p className="success">Müraciətiniz uğurla göndərildi</p>
           </div>
         </div>
       ) : (
