@@ -51,7 +51,7 @@ const Animator = () => {
 
                 <p className="text">
                   “Animator’s Accelerator” təlim proqramı Azərbaycan
-                  Respublikası Mədəniyyət Nazirliyinin dəstəyilə Alove Animasiya
+                  Respublikası Mədəniyyət Nazirliyinin dəstəyilə Animasiya
                   Studiyası tərəfindən təşkil olunur.
                 </p>
                 <br />
