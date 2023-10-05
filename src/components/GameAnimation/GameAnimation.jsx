@@ -233,7 +233,7 @@ const GameAnimation = ({ onFormSubmit }) => {
           {/* animation experience programs */}
           <div className="input-field">
             <label className="inp-label" htmlFor="programs">
-              3D üzrə təcrübəniz olan proqramları qeyd edin *
+              3D üzrə təcrübəniz olan proqramları qeyd edin
               <span className="star">*</span>
             </label>
             <input
