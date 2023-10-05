@@ -3,15 +3,28 @@ import FormRow from '../../components/FormRow/FormRow'
 import Hero from '../../components/Hero/Hero'
 import '../Animator/animator.scss'
 import GameBg from '../../assets/images/game.jpg'
+import GameAnimation from '../../components/GameAnimation/GameAnimation'
+import GameDesign from '../../components/GameDesign/GameDesign'
 
 const Game = () => {
   const [showHeadBox, setShowHeadBox] = useState(false)
-
-  const imgUrl = GameBg
+  const [showGameId, setShowGameId] = useState(null)
 
   const hideHeadBox = () => {
     setShowHeadBox(true)
   }
+  const gameContent = {
+    1: <GameAnimation onFormSubmit={hideHeadBox} />,
+    2: <GameDesign onFormSubmit={hideHeadBox} />,
+  }
+
+  const handleShowGame = (id) => {
+    console.log(showGameId)
+    setShowGameId(id)
+  }
+
+  const imgUrl = GameBg
+
   return (
     <>
       <Hero img={imgUrl} />
@@ -30,9 +43,23 @@ const Game = () => {
                   mentorluq dəstəyi verir.
                 </p>
               </div>
+              <div className="game-btns">
+                <button
+                  className={`btn ${showGameId === 1 ? 'active' : ''} `}
+                  onClick={() => handleShowGame(1)}
+                >
+                  <span>Oyun Animasiyası Kursu</span>
+                </button>
+                <button
+                  className={`btn ${showGameId === 2 ? 'active' : ''} `}
+                  onClick={() => handleShowGame(2)}
+                >
+                  <span>Oyun Dizaynı Kursu</span>
+                </button>
+              </div>
             </div>
           )}
-          {/* <FormRow onFormSubmit={hideHeadBox} /> */}
+          {showGameId !== null && gameContent[showGameId]}
         </div>
       </section>
     </>

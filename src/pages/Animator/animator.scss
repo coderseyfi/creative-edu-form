@@ -42,7 +42,7 @@
     }
   }
   .text-area {
-    margin-bottom: 53px;
+    margin-bottom: 62px;
     @include screen-xs {
       margin-bottom: 20px;
       text-align: center;
@@ -55,6 +55,31 @@
     }
     .bold-text {
       font-weight: 600;
+    }
+  }
+  .game-btns {
+    margin-bottom: 62px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    .btn {
+      cursor: pointer;
+      border-radius: 16px;
+      border: none;
+      padding: 25px 40px;
+      transition: 0.5s;
+      span {
+        color: #101010;
+        text-align: center;
+        font-family: var(--font-inter);
+        font-size: 26px;
+        font-weight: 500;
+      }
+    }
+
+    .btn.active {
+      background-color: #c5bcff;
     }
   }
 }
