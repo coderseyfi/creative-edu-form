@@ -15,7 +15,7 @@
     text-align: center;
     &__title {
       color: #1d1d1d;
-      font-size: 103px;
+      font-size: 90px;
       font-weight: 800;
       line-height: 106.023%;
       letter-spacing: 0.518px;
@@ -59,46 +59,76 @@
     }
   }
 
-  .bottom {
+  .flex {
     display: flex;
-    flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    column-gap: 30px;
-    @include forPhone {
-      row-gap: 30px;
+    flex-direction: column;
+
+    @include forDesktop {
+      flex-direction: column-reverse;
     }
-    &__link {
-      transition: 0.5s;
-      width: 235px;
-      transition: 0.2s;
-      padding: 0 4px;
-      height: 235px;
-      border-radius: 20px;
-      background: var(--font-white);
-      box-shadow: 0 0 8px #0000002e;
+
+    @include forTablet {
+      flex-direction: column-reverse;
+    }
+
+    .grid {
       display: flex;
-      justify-content: center;
+      flex-wrap: wrap;
       align-items: center;
-      flex-direction: column;
-      cursor: pointer;
-      gap: 14px;
-      @include screen-xs {
-        width: 100%;
+      justify-content: center;
+      margin-bottom: 30px;
+
+      &:first-child {
+        @include forTablet {
+          flex-wrap: wrap;
+        }
       }
-      @include forTablet {
-        width: 50%;
+
+      &:last-child {
+        @include forTablet {
+          flex-wrap: wrap-reverse;
+        }
       }
-      &__text {
-        color: var(--font-black);
-        text-align: center;
-        font-size: 20px;
-        // font-weight: 400;
+
+      column-gap: 30px;
+      @include forPhone {
+        row-gap: 30px;
       }
-    }
-    &__link:hover {
-      transform: translateY(-10px);
-      transition: 0.5s;
+      &__link {
+        transition: 0.5s;
+        width: 235px;
+        transition: 0.2s;
+        padding: 0 4px;
+        height: 235px;
+        border-radius: 20px;
+        background: var(--font-white);
+        box-shadow: 0 0 8px #0000002e;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        cursor: pointer;
+        gap: 14px;
+        @include screen-xs {
+          width: 100%;
+        }
+        img {
+          width: 80px;
+          height: 80px;
+        }
+        &__text {
+          color: var(--font-black);
+          text-align: center;
+          font-size: 20px;
+          // font-weight: 400;
+        }
+      }
+      &__link:hover {
+        transform: translateY(-10px);
+        transition: 0.5s;
+      }
     }
   }
 

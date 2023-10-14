@@ -11,7 +11,13 @@
 }
 
 @mixin forTablet {
-  @media (min-width: 301) and (max-width: 992px) {
+  @media (min-width: 769px) and (max-width: 992px) {
+    @content;
+  }
+}
+
+@mixin forDesktop {
+  @media (min-width: 992px) and (max-width: 1090px) {
     @content;
   }
 }

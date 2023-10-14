@@ -1,4 +1,3 @@
-import React from 'react'
 import './scroll.scss'
 
 const Hero = ({ img }) => {

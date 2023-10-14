@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import FormRow from '../../components/FormRow/FormRow'
 import Hero from '../../components/Hero/Hero'
 import '../Animator/animator.scss'
 import GameBg from '../../assets/images/game.jpg'
@@ -46,14 +45,12 @@ const Game = () => {
               <div className="game-btns">
                 <button
                   className={`btn ${showGameId === 1 ? 'active' : ''} `}
-                  onClick={() => handleShowGame(1)}
-                >
+                  onClick={() => handleShowGame(1)}>
                   <span>Oyun Animasiyası Kursu</span>
                 </button>
                 <button
                   className={`btn ${showGameId === 2 ? 'active' : ''} `}
-                  onClick={() => handleShowGame(2)}
-                >
+                  onClick={() => handleShowGame(2)}>
                   <span>Oyun Dizaynı Kursu</span>
                 </button>
               </div>

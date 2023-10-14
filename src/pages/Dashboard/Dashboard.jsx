@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import { useState } from 'react'
 import DashLine from '../../assets/ico/dashLine.svg'
 import './dashboard.scss'
 import { DUMMY_DASHBOARD } from '../../constants/constant'
@@ -9,6 +9,7 @@ import Comedia from '../../pages/Comedia/Comedia'
 import Game from '../../pages/Game/Game'
 import Music from '../Music/Music'
 import Graphic from '../Graphic/Graphic'
+import Cultech from '../CulTech/Cultech'
 
 const Dashboard = () => {
   const [openModalId, setOpenModalId] = useState(null)
@@ -32,6 +33,7 @@ const Dashboard = () => {
     4: <Comedia />,
     5: <Graphic />,
     6: <Game />,
+    7: <Cultech />,
   }
 
   return (
@@ -60,27 +62,40 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
-        <div className="bottom">
-          {DUMMY_DASHBOARD.map(({ id, ico, text }) => {
-            return (
-              <div
-                key={id}
-                className="bottom__link"
-                onClick={() => openModal(id)}
-              >
-                <img src={ico} alt="" />
-                <p className="bottom__link__text">{text}</p>
-              </div>
-            )
-          })}
+        <div className="flex">
+          <div className="grid">
+            {DUMMY_DASHBOARD.slice(0, 4).map(({ id, ico, text }) => {
+              return (
+                <div
+                  key={id}
+                  className="grid__link"
+                  onClick={() => openModal(id)}>
+                  <img src={ico} alt="" />
+                  <p className="grid__link__text">{text}</p>
+                </div>
+              )
+            })}
+          </div>
+          <div className="grid">
+            {DUMMY_DASHBOARD.slice(4).map(({ id, ico, text }) => {
+              return (
+                <div
+                  key={id}
+                  className="grid__link"
+                  onClick={() => openModal(id)}>
+                  <img src={ico} alt="" />
+                  <p className="grid__link__text">{text}</p>
+                </div>
+              )
+            })}
+          </div>
         </div>
       </div>
       {openModalId !== null && (
         <Modal
           isOpen={true}
           onClose={closeModal}
-          title={DUMMY_DASHBOARD[openModalId - 1].text}
-        >
+          title={DUMMY_DASHBOARD[openModalId - 1].text}>
           {modalContent[openModalId]}
         </Modal>
       )}
