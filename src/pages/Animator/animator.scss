@@ -74,7 +74,10 @@
       padding: 25px 40px;
       transition: 0.5s;
       @include screen-xs {
-        padding: 15px 20px;
+        padding: 15px 15px;
+      }
+      @include forTablet {
+        padding: 15px 30px;
       }
       span {
         color: #101010;

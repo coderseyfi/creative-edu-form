@@ -68,7 +68,7 @@ const ComedyForm = ({ onFormSubmit }) => {
 
     const formObject = {}
     formData.forEach((value, key) => {
-      formObject[key] = value
+      formObject[key] = value.trim()
     })
 
     for (const key in formObject) {
@@ -186,8 +186,7 @@ const ComedyForm = ({ onFormSubmit }) => {
                   />
                   <label
                     htmlFor={`activity_${activity.id}`}
-                    className="radio-label"
-                  >
+                    className="radio-label">
                     {activity.name}
                   </label>
                 </div>
@@ -213,8 +212,7 @@ const ComedyForm = ({ onFormSubmit }) => {
                   />
                   <label
                     htmlFor={`experience_${experience.id}`}
-                    className="radio-label"
-                  >
+                    className="radio-label">
                     {experience.name}
                   </label>
                 </div>

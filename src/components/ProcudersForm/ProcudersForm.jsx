@@ -36,7 +36,7 @@ const ProcudersForm = ({ onFormSubmit }) => {
 
     const formObject = {}
     formData.forEach((value, key) => {
-      formObject[key] = value
+      formObject[key] = value.trim()
     })
 
     for (const key in formObject) {
