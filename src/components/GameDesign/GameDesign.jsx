@@ -181,8 +181,7 @@ const GameDesign = ({ onFormSubmit }) => {
                   />
                   <label
                     htmlFor={`eduLevel_${eduLevel.id}`}
-                    className="radio-label"
-                  >
+                    className="radio-label">
                     {eduLevel.name}
                   </label>
                 </div>
@@ -209,7 +208,7 @@ const GameDesign = ({ onFormSubmit }) => {
           {/* animation experience */}
           <div className="input-field">
             <label className="inp-label" htmlFor="experience">
-              Daha əvvəl animasiya sahəsində təcrübəniz olubmu?
+              Daha əvvəl oyun dizaynı sahəsində təcrübəniz olubmu?
               <span className="star">*</span>
               <br />
               <span>

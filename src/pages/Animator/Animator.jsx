@@ -35,9 +35,8 @@ const Animator = () => {
                 </p>
                 <br />
                 <p className="text">
-                  Qeydiyyat sentyabrın 30-na qədər davam edəcək. Təlim
-                  proqramında iştirak üçün aşağıdaki formanı doldurmağınız xahiş
-                  olunur.
+                  Qeydiyyat oktyabrın 8-nə qədər davam edəcək. Təlim proqramında
+                  iştirak üçün aşağıdaki formanı doldurmağınız xahiş olunur.
                 </p>
                 <br />
                 <p className="text">
