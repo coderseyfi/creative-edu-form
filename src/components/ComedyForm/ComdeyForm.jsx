@@ -301,7 +301,7 @@ const ComedyForm = ({ onFormSubmit }) => {
           </div>
           <div className="radio-field radio-music">
             <p className="radio-field__head">
-              Hansı komediya janrını öyrənmək istərdiniz? *
+              Hansı komediya janrını öyrənmək istərdiniz?
               <span className="star">*</span>
             </p>
             {genres.map((genre) => {
