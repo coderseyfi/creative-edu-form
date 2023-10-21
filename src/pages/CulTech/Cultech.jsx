@@ -1,17 +1,17 @@
-import { useState } from 'react'
-import Hero from '../../components/Hero/Hero'
-import '../Animator/animator.scss'
-import TechBg from '../../assets/images/tech.jpg'
-import CulTechForm from '../../components/CulTech/CultechForm'
+import { useState } from "react";
+import Hero from "../../components/Hero/Hero";
+import "../Animator/animator.scss";
+import TechBg from "../../assets/images/tech.jpg";
+import CulTechForm from "../../components/CulTech/CultechForm";
 
 const Cultech = () => {
-  const [showHeadBox, setShowHeadBox] = useState(false)
+  const [showHeadBox, setShowHeadBox] = useState(false);
 
   const hideHeadBox = () => {
-    setShowHeadBox(true)
-  }
+    setShowHeadBox(true);
+  };
 
-  const imgUrl = TechBg
+  const imgUrl = TechBg;
 
   return (
     <>
@@ -26,9 +26,10 @@ const Cultech = () => {
                   Cultech Akademiyası öz təhsil proqramları vasitəsi ilə
                   mədəniyyət texnologiyaları sahəsində fəaliyyət göstərmək
                   istəyən mütəxəssislərin bilik və bacarıqlarının artırılmasına
-                  köməklik edir və onlar arasında öz startaplarını qurmaq
-                  istəyən komandalara ideyadan məhsulun hazırlanması prosesinə
-                  qədər olan mərhələlərdə mentorluq dəstəyi göstərir.
+                  köməklik edir. Mədəni irsin rəqəmsallaşdırılması istiqamətində
+                  proqramlaşdırma kursunun nəznində mobil proqramlaşdırma
+                  (Flutter) və artırılmış reallıq (AR) texnologiyaları tədris
+                  olunacaq.
                 </p>
               </div>
             </div>
@@ -37,7 +38,7 @@ const Cultech = () => {
         </div>
       </section>
     </>
-  )
-}
+  );
+};
 
-export default Cultech
+export default Cultech;
