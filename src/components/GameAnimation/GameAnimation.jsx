@@ -14,6 +14,7 @@ const GameAnimation = ({ onFormSubmit }) => {
   const [selectedLanguages, setSelectedLanguages] = useState([])
   const [isChecked, setIsChecked] = useState(false)
   const [languageValid, setLanguageValid] = useState()
+  const [otherSubmit, setOtherSubmit] = useState(false)
 
   const fetchData = async () => {
     try {
@@ -39,6 +40,52 @@ const GameAnimation = ({ onFormSubmit }) => {
     fetchData()
   }, [])
 
+  const validateForm = (formData) => {
+    const errors = {}
+
+    if (!formData.name_surname) {
+      errors.name_surname = 'Ad və soyad boş buraxıla bilməz'
+    }
+
+    if (!formData.wp_phone) {
+      errors.wp_phone = 'Telefon  nömrəsi boş buraxıla bilməz'
+    }
+
+    if (!formData.email) {
+      errors.email = 'E-mail ünvan boş buraxıla bilməz'
+    }
+
+    if (!formData.birth) {
+      errors.birth = 'Doğum tarixi boş buraxıla bilməz'
+    }
+
+    if (!formData.series) {
+      errors.series = 'Şəxsiyyət vəsiqəsinin seriya nömrəsi boş buraxıla bilməz'
+    }
+
+    if (!formData.linkedin) {
+      errors.linkedin = 'Linkedin hesabı boş buraxıla bilməz'
+    }
+
+    if (!formData.education) {
+      errors.education = 'Təhsil səviyyəsi boş buraxıla bilməz'
+    }
+
+    if (!formData.university) {
+      errors.university = 'Təhsil aldığınız universitet boş buraxıla bilməz'
+    }
+
+    if (!formData.experience) {
+      errors.experience = 'Animasiya sahəsindəki təcrübəniz boş buraxıla bilməz'
+    }
+
+    if (!formData.programs) {
+      errors.programs = '3D üzrə təcrübəniz olan proqramlar boş buraxıla bilməz'
+    }
+
+    return errors
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
 
@@ -52,17 +99,26 @@ const GameAnimation = ({ onFormSubmit }) => {
       formObject[key] = value.trim()
     })
 
-    if (isChecked && otherSkill.trim().length > 0) {
+    
+    if (isChecked && otherSkill.trim().length > 0 && !otherSubmit) {
       selectedLanguages.push(otherSkill)
+      setOtherSubmit(true)
     }
 
     if (selectedLanguages.length === 0) {
       setLanguageValid({
         ...languageValid,
-        language: 'Dil bacarıqlarınız mütləqdir.',
+        language: 'Dil bacarıqlarınız boş buraxıla bilməz',
       })
     } else {
       setLanguageValid({ ...languageValid, language: null })
+    }
+
+    const formErrors = validateForm(formObject)
+
+    if (Object.keys(formErrors).length > 0) {
+      setIsValid(formErrors)
+      return
     }
 
     try {
@@ -263,7 +319,7 @@ const GameAnimation = ({ onFormSubmit }) => {
               type="text"
               id="programs"
               name="programs"
-              className={`input-row ${isValid?.email ? 'err' : ''}`}
+              className={`input-row ${isValid?.programs ? 'err' : ''}`}
             />
             {isValid?.programs && (
               <span className="valid-msg">{...isValid?.programs}</span>

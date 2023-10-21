@@ -13,6 +13,7 @@ const CulTechForm = ({ onFormSubmit }) => {
   const [selectedLanguages, setSelectedLanguages] = useState([])
   const [otherSkill, setOtherSkill] = useState('')
   const [languageValid, setLanguageValid] = useState()
+  const [otherSubmit, setOtherSubmit] = useState(false)
 
   const fetchData = async () => {
     try {
@@ -37,6 +38,41 @@ const CulTechForm = ({ onFormSubmit }) => {
     fetchData()
   }, [])
 
+  const validateForm = (formData) => {
+    const errors = {}
+
+    if (!formData.name_surname) {
+      errors.name_surname = 'Ad və soyad boş buraxıla bilməz'
+    }
+
+    if (!formData.birth) {
+      errors.birth = 'Doğum tarixi boş buraxıla bilməz'
+    }
+
+    if (!formData.email) {
+      errors.email = 'E-mail ünvan boş buraxıla bilməz'
+    }
+
+    if (!formData.wp_phone) {
+      errors.wp_phone = 'Telefon  nömrəsi boş buraxıla bilməz'
+    }
+
+    if (!formData.linkedin) {
+      errors.linkedin = 'Linkedin hesabı boş buraxıla bilməz'
+    }
+
+    //passport
+    if (!formData.series) {
+      errors.series = 'Şəxsiyyət vəsiqəsinin seriya nömrəsi boş buraxıla bilməz'
+    }
+
+    if (!formData.education && !isChecked) {
+      errors.education = 'Təhsil səviyyəsi boş buraxıla bilməz'
+    }
+
+    return errors
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
 
@@ -50,17 +86,25 @@ const CulTechForm = ({ onFormSubmit }) => {
       formObject[key] = value.trim()
     })
 
-    if (isChecked && otherSkill.trim().length > 0) {
+    if (isChecked && otherSkill.trim().length > 0 && !otherSubmit) {
       selectedLanguages.push(otherSkill)
+      setOtherSubmit(true)
     }
 
     if (selectedLanguages.length === 0) {
       setLanguageValid({
         ...languageValid,
-        language: 'Dil bacarıqlarınız mütləqdir.',
+        language: 'Dil bacarıqlarınız boş buraxıla bilməz',
       })
     } else {
       setLanguageValid({ ...languageValid, language: null })
+    }
+
+    const formErrors = validateForm(formObject)
+
+    if (Object.keys(formErrors).length > 0) {
+      setIsValid(formErrors)
+      return
     }
 
     for (const key in formObject) {

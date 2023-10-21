@@ -49,7 +49,7 @@ const ComedyForm = ({ onFormSubmit }) => {
   const [selectedLanguages, setSelectedLanguages] = useState([])
   const [otherSkill, setOtherSkill] = useState('')
   const [languageValid, setLanguageValid] = useState()
-
+  const [otherSubmit, setOtherSubmit] = useState(false)
 
   const fetchData = async () => {
     try {
@@ -77,6 +77,44 @@ const ComedyForm = ({ onFormSubmit }) => {
     fetchData()
   }, [])
 
+  const validateForm = (formData) => {
+    const errors = {}
+
+    if (!formData.name_surname) {
+      errors.name_surname = 'Ad və soyad boş buraxıla bilməz'
+    }
+
+    if (!formData.wp_phone) {
+      errors.wp_phone = 'WhatsApp nömrəsi boş buraxıla bilməz'
+    }
+
+    if (!formData.email) {
+      errors.email = 'E-mail ünvan boş buraxıla bilməz'
+    }
+
+    if (!formData.age) {
+      errors.age = 'Yaşınız boş buraxıla bilməz'
+    }
+
+    if (!formData.activity_field) {
+      errors.activity_field = 'Fəaliyyət sahəsi boş buraxıla bilməz'
+    }
+
+    if (!formData.have_experience) {
+      errors.have_experience = 'Komediya təcrübəniz boş buraxıla bilməz'
+    }
+
+    if (!formData.learn_genre) {
+      errors.learn_genre = 'Öyrənmək istədiyiniz janr boş buraxıla bilməz'
+    }
+
+    if (selectedLanguages.length === 0 && !isChecked) {
+      errors.language = 'Dil bacarıqlarınız boş buraxıla bilməz'
+    }
+
+    return errors
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
 
@@ -90,17 +128,25 @@ const ComedyForm = ({ onFormSubmit }) => {
       formObject[key] = value.trim()
     })
 
-    if (isChecked && otherSkill.trim().length > 0) {
+    if (isChecked && otherSkill.trim().length > 0 && !otherSubmit) {
       selectedLanguages.push(otherSkill)
+      setOtherSubmit(true)
     }
 
     if (selectedLanguages.length === 0) {
       setLanguageValid({
         ...languageValid,
-        language: 'Dil bacarıqlarınız mütləqdir.',
+        language: 'Dil bacarıqlarınız boş buraxıla bilməz',
       })
     } else {
       setLanguageValid({ ...languageValid, language: null })
+    }
+
+    const formErrors = validateForm(formObject)
+
+    if (Object.keys(formErrors).length > 0) {
+      setIsValid(formErrors)
+      return
     }
 
     for (const key in formObject) {
@@ -114,7 +160,6 @@ const ComedyForm = ({ onFormSubmit }) => {
     try {
       const response = await axios.post('/comedy-appeal', formObject)
       setFormSubmitted(true)
-      console.log('Form submit oldu!', response.data)
       if (typeof onFormSubmit === 'function') {
         onFormSubmit()
       }
