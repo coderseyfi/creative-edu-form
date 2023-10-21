@@ -48,3 +48,22 @@ export const DUMMY_DASHBOARD = [
     // to: '/game',
   },
 ]
+
+export const languages = [
+  {
+    id: 1,
+    name: 'İngiliscə',
+  },
+  {
+    id: 2,
+    name: 'Türkcə',
+  },
+  {
+    id: 3,
+    name: 'Rusca',
+  },
+  {
+    id: 4,
+    name: 'Almanca',
+  },
+]

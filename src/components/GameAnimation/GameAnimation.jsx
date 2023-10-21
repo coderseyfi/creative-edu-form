@@ -3,12 +3,17 @@ import axios from '../../api/api'
 import { useState } from 'react'
 import { useEffect } from 'react'
 import Submit from '../../assets/ico/submit.svg'
+import { languages } from '../../constants/constant'
 /* eslint-disable */
 
 const GameAnimation = ({ onFormSubmit }) => {
   const [eduLevels, setEduLevels] = useState([])
   const [formSubmitted, setFormSubmitted] = useState(false)
   const [isValid, setIsValid] = useState()
+  const [otherSkill, setOtherSkill] = useState('')
+  const [selectedLanguages, setSelectedLanguages] = useState([])
+  const [isChecked, setIsChecked] = useState(false)
+  const [languageValid, setLanguageValid] = useState()
 
   const fetchData = async () => {
     try {
@@ -17,6 +22,16 @@ const GameAnimation = ({ onFormSubmit }) => {
       console.log(data.data)
     } catch (error) {
       console.error('Data fetch error:', error)
+    }
+  }
+
+  const handleInput = (languageName) => {
+    if (!selectedLanguages.includes(languageName)) {
+      setSelectedLanguages([...selectedLanguages, languageName])
+    } else {
+      setSelectedLanguages(
+        selectedLanguages.filter((name) => name !== languageName)
+      )
     }
   }
 
@@ -30,16 +45,24 @@ const GameAnimation = ({ onFormSubmit }) => {
     const formData = new FormData(e.target)
 
     const formObject = {}
+
+    formObject['language'] = selectedLanguages
+
     formData.forEach((value, key) => {
-      formObject[key] = value
+      formObject[key] = value.trim()
     })
 
-    for (const key in formObject) {
-      if (formObject.hasOwnProperty(key)) {
-        if (formObject[key] === '' || formObject[key] === null) {
-          formObject[key] = null
-        }
-      }
+    if (isChecked && otherSkill.trim().length > 0) {
+      selectedLanguages.push(otherSkill)
+    }
+
+    if (selectedLanguages.length === 0) {
+      setLanguageValid({
+        ...languageValid,
+        language: 'Dil bacarıqlarınız mütləqdir.',
+      })
+    } else {
+      setLanguageValid({ ...languageValid, language: null })
     }
 
     try {
@@ -258,6 +281,57 @@ const GameAnimation = ({ onFormSubmit }) => {
               name="portfolio"
               className={`input-row`}
             />
+          </div>
+
+          <div className="checkbox-field">
+            <p>
+              Dil bacarıqlarınız
+              <span className="star">*</span>
+            </p>
+            <div className="checkbox-wrapper">
+              {languages.map((language) => {
+                return (
+                  <div key={language.id} className="checkbox-area">
+                    <input
+                      type="checkbox"
+                      id={`language_${language.id}`}
+                      onChange={() => handleInput(language.name)}
+                    />
+                    <label htmlFor={`language_${language.id}`}>
+                      {language.name}
+                    </label>
+                  </div>
+                )
+              })}
+
+              <div className="checkbox-area">
+                <input
+                  type="checkbox"
+                  id="otherSkill"
+                  className="other-box"
+                  onChange={(e) => {
+                    setIsChecked(e.target.checked)
+                  }}
+                />
+
+                <label htmlFor="otherSkill">Other:</label>
+                {isChecked && (
+                  <input
+                    onChange={
+                      isChecked
+                        ? (e) => setOtherSkill(e.target.value)
+                        : () => {}
+                    }
+                    className="other-inp"
+                    type="text"
+                  />
+                )}
+              </div>
+
+              {languageValid?.language && (
+                <span className="valid-msg">{...languageValid?.language}</span>
+              )}
+            </div>
           </div>
 
           {/* btn */}
