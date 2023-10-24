@@ -70,132 +70,132 @@ const ProcudersForm = ({ onFormSubmit }) => {
             <p className="success">Müraciətiniz uğurla göndərildi</p>
           </div>
         </div>
-      ) : (
-        <form className="form" onSubmit={handleSubmit}>
-          <div className="input-field">
-            <label className="inp-label" htmlFor="email">
-              Elektron poçt ünvanı<span className="star">*</span>
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              className={`input-row ${isValid?.email ? 'err' : ''}`}
-            />
-            {isValid?.email && (
-              <span className="valid-msg">{...isValid?.email}</span>
-            )}
-          </div>
-          <div className="input-field">
-            <label className="inp-label" htmlFor="fullName">
-              Ad, soyad, atanızın adı<span className="star">*</span>
-            </label>
-            <input
-              type="text"
-              id="fullName"
-              name="name_surname"
-              className={`input-row ${isValid?.name_surname ? 'err' : ''}`}
-            />
-            {isValid?.name_surname && (
-              <span className="valid-msg">{...isValid?.name_surname}</span>
-            )}
-          </div>
-          <div className="input-field">
-            <label className="inp-label" htmlFor="whatsappNumber">
-              Telefon nömrəsi (sizinlə əlaqə saxlanılacaq):
-              <span className="star">*</span>
-            </label>
-            <input
-              type="text"
-              id="whatsappNumber"
-              name="wp_phone"
-              className={`input-row ${isValid?.wp_phone ? 'err' : ''}`}
-            />
-            {isValid?.wp_phone && (
-              <span className="valid-msg">{...isValid?.wp_phone}</span>
-            )}
-          </div>
-          <div className="input-field">
-            <label className="inp-label" htmlFor="education">
-              Təhsiliniz:
-              <span className="star">*</span>
-            </label>
-            <input
-              type="text"
-              id="education"
-              name="education"
-              className={`input-row ${isValid?.education ? 'err' : ''}`}
-            />
-            {isValid?.education && (
-              <span className="valid-msg">{...isValid?.education}</span>
-            )}
-          </div>
-          <div className="input-field">
-            <label className="inp-label" htmlFor="film_experience">
-              Kino sahəsində təcrübəniz varmı? (məcburi deyil){' '}
-            </label>
-            <textarea
-              type="text"
-              row="1"
-              id="film_experience"
-              name="film_experience"
-              className={`input-row`}
-              onChange={handleChange}
-            />
-          </div>
-          <div className="input-field">
-            <label className="inp-label" htmlFor="filmography">
-              Filmoqrafiya (varsa) (YouTube / Vimeo linki):
-            </label>
-            <textarea
-              type="text"
-              id="filmography"
-              name="filmoqrafiya"
-              className="input-row"
-              onChange={handleChange}
-              row="1"
-            />
-          </div>
-          <div className="input-field">
-            <label className="inp-label" htmlFor="film_example">
-              Hazırda işlədiyiniz kino layihəsi (varsa) (YouTube / Vimeo linki):
-            </label>
-            <input
-              type="text"
-              id="film_example"
-              name="film_example"
-              className={`input-row`}
-            />
-          </div>
+      ) : null
+      // <form className="form" onSubmit={handleSubmit}>
+      //   <div className="input-field">
+      //     <label className="inp-label" htmlFor="email">
+      //       Elektron poçt ünvanı<span className="star">*</span>
+      //     </label>
+      //     <input
+      //       type="email"
+      //       id="email"
+      //       name="email"
+      //       className={`input-row ${isValid?.email ? 'err' : ''}`}
+      //     />
+      //     {isValid?.email && (
+      //       <span className="valid-msg">{...isValid?.email}</span>
+      //     )}
+      //   </div>
+      //   <div className="input-field">
+      //     <label className="inp-label" htmlFor="fullName">
+      //       Ad, soyad, atanızın adı<span className="star">*</span>
+      //     </label>
+      //     <input
+      //       type="text"
+      //       id="fullName"
+      //       name="name_surname"
+      //       className={`input-row ${isValid?.name_surname ? 'err' : ''}`}
+      //     />
+      //     {isValid?.name_surname && (
+      //       <span className="valid-msg">{...isValid?.name_surname}</span>
+      //     )}
+      //   </div>
+      //   <div className="input-field">
+      //     <label className="inp-label" htmlFor="whatsappNumber">
+      //       Telefon nömrəsi (sizinlə əlaqə saxlanılacaq):
+      //       <span className="star">*</span>
+      //     </label>
+      //     <input
+      //       type="text"
+      //       id="whatsappNumber"
+      //       name="wp_phone"
+      //       className={`input-row ${isValid?.wp_phone ? 'err' : ''}`}
+      //     />
+      //     {isValid?.wp_phone && (
+      //       <span className="valid-msg">{...isValid?.wp_phone}</span>
+      //     )}
+      //   </div>
+      //   <div className="input-field">
+      //     <label className="inp-label" htmlFor="education">
+      //       Təhsiliniz:
+      //       <span className="star">*</span>
+      //     </label>
+      //     <input
+      //       type="text"
+      //       id="education"
+      //       name="education"
+      //       className={`input-row ${isValid?.education ? 'err' : ''}`}
+      //     />
+      //     {isValid?.education && (
+      //       <span className="valid-msg">{...isValid?.education}</span>
+      //     )}
+      //   </div>
+      //   <div className="input-field">
+      //     <label className="inp-label" htmlFor="film_experience">
+      //       Kino sahəsində təcrübəniz varmı? (məcburi deyil){' '}
+      //     </label>
+      //     <textarea
+      //       type="text"
+      //       row="1"
+      //       id="film_experience"
+      //       name="film_experience"
+      //       className={`input-row`}
+      //       onChange={handleChange}
+      //     />
+      //   </div>
+      //   <div className="input-field">
+      //     <label className="inp-label" htmlFor="filmography">
+      //       Filmoqrafiya (varsa) (YouTube / Vimeo linki):
+      //     </label>
+      //     <textarea
+      //       type="text"
+      //       id="filmography"
+      //       name="filmoqrafiya"
+      //       className="input-row"
+      //       onChange={handleChange}
+      //       row="1"
+      //     />
+      //   </div>
+      //   <div className="input-field">
+      //     <label className="inp-label" htmlFor="film_example">
+      //       Hazırda işlədiyiniz kino layihəsi (varsa) (YouTube / Vimeo linki):
+      //     </label>
+      //     <input
+      //       type="text"
+      //       id="film_example"
+      //       name="film_example"
+      //       className={`input-row`}
+      //     />
+      //   </div>
 
-          <div className="radio-field">
-            <p className="radio-field__head">İngilis dili səviyyəniz</p>
-            {levels.map((level) => {
-              return (
-                <div key={level.id} className="radio-area">
-                  <input
-                    type="radio"
-                    id={`level_${level.id}`}
-                    name="english_level"
-                    value={level.id}
-                  />
-                  <label htmlFor={`level_${level.id}`} className="radio-label">
-                    {level.name}
-                  </label>
-                </div>
-              )
-            })}
-            {isValid?.english_level && (
-              <span className="valid-msg">{...isValid?.english_level}</span>
-            )}
-          </div>
-          <div className="btn-field">
-            <button type="submit" className="form-btn">
-              <span className="form-btn__text">Göndər</span>
-            </button>
-          </div>
-        </form>
-      )}
+      //   <div className="radio-field">
+      //     <p className="radio-field__head">İngilis dili səviyyəniz</p>
+      //     {levels.map((level) => {
+      //       return (
+      //         <div key={level.id} className="radio-area">
+      //           <input
+      //             type="radio"
+      //             id={`level_${level.id}`}
+      //             name="english_level"
+      //             value={level.id}
+      //           />
+      //           <label htmlFor={`level_${level.id}`} className="radio-label">
+      //             {level.name}
+      //           </label>
+      //         </div>
+      //       )
+      //     })}
+      //     {isValid?.english_level && (
+      //       <span className="valid-msg">{...isValid?.english_level}</span>
+      //     )}
+      //   </div>
+      //   <div className="btn-field">
+      //     <button type="submit" className="form-btn">
+      //       <span className="form-btn__text">Göndər</span>
+      //     </button>
+      //   </div>
+      // </form>
+      }
     </div>
   )
 }

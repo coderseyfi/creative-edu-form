@@ -26,7 +26,8 @@ const Animator = () => {
                   təlim proqramına qəbul başladı
                 </span>
               </h1>
-              <div className="text-area">
+              <h3 className="form-over">Qeydiyyat başa çatmışdır</h3>
+              {/* <div className="text-area">
                 <p className="text">
                   Yerli animatorların kvalifikasiyasının artırılması məqsədilə
                   “Animator’s Accelerator” təlim proqramının qəbuluna start
@@ -57,7 +58,7 @@ const Animator = () => {
                 <p className="bold-text">
                   Təlimdə iştirak üçün ödəniş tələb olunmur.
                 </p>
-              </div>
+              </div> */}
             </div>
           )}
           <FormRow onFormSubmit={hideHeadBox} />

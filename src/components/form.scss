@@ -174,4 +174,16 @@
   margin-bottom: 16px;
   text-align: center;
   font-size: 40px;
+
+  @include forDesktop {
+    font-size: 32px;
+  }
+
+  @include forTablet {
+    font-size: 26px;
+  }
+
+  @include screen-xs {
+    font-size: 22px;
+  }
 }
