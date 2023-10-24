@@ -22,9 +22,9 @@ const Animator = () => {
               <h1 className="heading">
                 “Animator’s Accelerator”
                 <br />
-                <span className="heading-thin">
+                {/* <span className="heading-thin">
                   təlim proqramına qəbul başladı
-                </span>
+                </span> */}
               </h1>
               <h3 className="form-over">Qeydiyyat başa çatmışdır</h3>
               {/* <div className="text-area">

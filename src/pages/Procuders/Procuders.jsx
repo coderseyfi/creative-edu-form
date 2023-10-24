@@ -20,9 +20,9 @@ const Procuders = () => {
               <h1 className="heading">
                 Procuders Elevator
                 <br />
-                <span className="heading-thin">
+                {/* <span className="heading-thin">
                   təlim proqramına qəbul başladı
-                </span>
+                </span> */}
               </h1>
               <h3 className="form-over">Qeydiyyat başa çatmışdır</h3>
 
