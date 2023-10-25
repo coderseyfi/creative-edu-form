@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useEffect } from 'react'
 import Submit from '../../assets/ico/submit.svg'
 import { languages } from '../../constants/constant'
+import Spinner from '../Spinner/Spinner'
 
 const CulTechForm = ({ onFormSubmit }) => {
   const [eduLevels, setEduLevels] = useState([])
@@ -14,6 +15,7 @@ const CulTechForm = ({ onFormSubmit }) => {
   const [otherSkill, setOtherSkill] = useState('')
   const [languageValid, setLanguageValid] = useState()
   const [otherSubmit, setOtherSubmit] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   const fetchData = async () => {
     try {
@@ -116,6 +118,7 @@ const CulTechForm = ({ onFormSubmit }) => {
     }
 
     try {
+      setLoading(true)
       const response = await axios.post('/cultech-appeal', formObject)
       setFormSubmitted(true)
       if (typeof onFormSubmit === 'function') {
@@ -124,6 +127,8 @@ const CulTechForm = ({ onFormSubmit }) => {
     } catch (error) {
       setIsValid(error.response.data.data)
       setFormSubmitted(false)
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -136,6 +141,8 @@ const CulTechForm = ({ onFormSubmit }) => {
             <p className="success">Müraciətiniz uğurla göndərildi</p>
           </div>
         </div>
+      ) : loading ? (
+        <Spinner />
       ) : (
         <form className="form" onSubmit={handleSubmit}>
           {/* name surname */}

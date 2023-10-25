@@ -5,6 +5,7 @@ import { useEffect } from 'react'
 import Submit from '../../assets/ico/submit.svg'
 import './comedyform.scss'
 import { languages } from '../../constants/constant'
+import Spinner from '../Spinner/Spinner'
 
 const experiences = [
   {
@@ -50,6 +51,7 @@ const ComedyForm = ({ onFormSubmit }) => {
   const [otherSkill, setOtherSkill] = useState('')
   const [languageValid, setLanguageValid] = useState()
   const [otherSubmit, setOtherSubmit] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   const fetchData = async () => {
     try {
@@ -158,8 +160,10 @@ const ComedyForm = ({ onFormSubmit }) => {
     }
 
     try {
+      setLoading(true)
       const response = await axios.post('/comedy-appeal', formObject)
       setFormSubmitted(true)
+
       if (typeof onFormSubmit === 'function') {
         onFormSubmit()
       }
@@ -167,6 +171,8 @@ const ComedyForm = ({ onFormSubmit }) => {
       setIsValid(error.response.data.data)
       setFormSubmitted(false)
       console.error('Form submit olunmadı:', error)
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -179,6 +185,8 @@ const ComedyForm = ({ onFormSubmit }) => {
             <p className="success">Müraciətiniz uğurla göndərildi</p>
           </div>
         </div>
+      ) : loading ? (
+        <Spinner />
       ) : (
         <form className="form" onSubmit={handleSubmit}>
           <div className="input-field">
