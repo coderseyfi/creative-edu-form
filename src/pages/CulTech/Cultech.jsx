@@ -1,17 +1,17 @@
-import { useState } from "react";
-import Hero from "../../components/Hero/Hero";
-import "../Animator/animator.scss";
-import TechBg from "../../assets/images/tech.jpg";
-import CulTechForm from "../../components/CulTech/CultechForm";
+import { useState } from 'react'
+import Hero from '../../components/Hero/Hero'
+import '../Animator/animator.scss'
+import TechBg from '../../assets/images/tech.jpg'
+import CulTechForm from '../../components/CulTech/CultechForm'
 
 const Cultech = () => {
-  const [showHeadBox, setShowHeadBox] = useState(false);
+  const [showHeadBox, setShowHeadBox] = useState(false)
 
   const hideHeadBox = () => {
-    setShowHeadBox(true);
-  };
+    setShowHeadBox(true)
+  }
 
-  const imgUrl = TechBg;
+  const imgUrl = TechBg
 
   return (
     <>
@@ -21,7 +21,7 @@ const Cultech = () => {
           {!showHeadBox && (
             <div className="head-box">
               <h1 className="heading">CulTech Akademiyası</h1>
-              <div className="text-area">
+              {/* <div className="text-area">
                 <p className="text">
                   Cultech Akademiyası öz təhsil proqramları vasitəsi ilə
                   mədəniyyət texnologiyaları sahəsində fəaliyyət göstərmək
@@ -31,14 +31,15 @@ const Cultech = () => {
                   (Flutter) və artırılmış reallıq (AR) texnologiyaları tədris
                   olunacaq.
                 </p>
-              </div>
+              </div> */}
+              <h3 className="form-over">Qeydiyyat başa çatmışdır</h3>
             </div>
           )}
           <CulTechForm onFormSubmit={hideHeadBox} />
         </div>
       </section>
     </>
-  );
-};
+  )
+}
 
-export default Cultech;
+export default Cultech
