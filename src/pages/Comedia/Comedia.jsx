@@ -21,7 +21,7 @@ const Comedia = () => {
           {!showHeadBox && (
             <div className="head-box">
               <h1 className="heading">Komediya və performans məktəbi</h1>
-              <div className="text-area">
+              {/* <div className="text-area">
                 <p className="text">
                   Komediya və performans məktəbi 15-99 yaş arası insanların
                   sosial bacarıqlarını, ünsiyyət bacarıqlarını təkmilləşdirə və
@@ -35,7 +35,8 @@ const Comedia = () => {
                   peşəkar komediyaçı deyil, həm də aparıcı, aktyor, ictimai
                   xadim və hətta ssenarist ola bilərlər.
                 </p>
-              </div>
+              </div> */}
+              <h3 className="form-over">Qeydiyyat başa çatmışdır</h3>
             </div>
           )}
           <ComedyForm onFormSubmit={hideHeadBox} />
