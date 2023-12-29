@@ -1,3 +1,14 @@
 .radio-music {
   margin-bottom: 30px !important;
 }
+
+.spinner {
+  text-align: center;
+  height: 700px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  span {
+    background-color: #f6f6f6;
+  }
+}

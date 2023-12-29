@@ -20,15 +20,17 @@ const Procuders = () => {
               <h1 className="heading">
                 Procuders Elevator
                 <br />
-                <span className="heading-thin">
+                {/* <span className="heading-thin">
                   təlim proqramına qəbul başladı
-                </span>
+                </span> */}
               </h1>
-              <div className="text-area">
+              <h3 className="form-over">Qeydiyyat başa çatmışdır</h3>
+
+              {/* <div className="text-area">
                 <p className="bold-text">
                   Təlimdə iştirak üçün ödəniş tələb olunmur.
                 </p>
-              </div>
+              </div> */}
             </div>
           )}
           <ProcudersForm onFormSubmit={hideHeadBox} />
