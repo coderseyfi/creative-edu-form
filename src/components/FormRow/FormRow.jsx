@@ -1,83 +1,83 @@
-import React from 'react'
-import axios from '../../api/api'
-import { useState } from 'react'
-import { useEffect } from 'react'
-import Submit from '../../assets/ico/submit.svg'
+import React from "react";
+import axios from "../../api/api";
+import { useState } from "react";
+import { useEffect } from "react";
+import Submit from "../../assets/ico/submit.svg";
 
 const FormRow = ({ onFormSubmit }) => {
-  const [skills, setSkills] = useState([])
-  const [levels, setLevels] = useState([])
-  const [otherSkill, setOtherSkill] = useState('')
-  const [formSubmitted, setFormSubmitted] = useState(false)
-  const [isChecked, setIsChecked] = useState(false)
-  const [isValid, setIsValid] = useState()
-  const [selectedSkills, setSelectedSkills] = useState([])
-  const [text, setText] = useState('')
+  const [skills, setSkills] = useState([]);
+  const [levels, setLevels] = useState([]);
+  const [otherSkill, setOtherSkill] = useState("");
+  const [formSubmitted, setFormSubmitted] = useState(false);
+  const [isChecked, setIsChecked] = useState(false);
+  const [isValid, setIsValid] = useState();
+  const [selectedSkills, setSelectedSkills] = useState([]);
+  const [text, setText] = useState("");
 
   const handleChange = (e) => {
-    setText(e.target.value)
-    e.target.style.height = '60px'
-    e.target.style.height = `${e.target.scrollHeight}px`
-  }
+    setText(e.target.value);
+    e.target.style.height = "60px";
+    e.target.style.height = `${e.target.scrollHeight}px`;
+  };
 
   const fetchData = async () => {
     try {
-      const skillResponse = await axios.get('/animator-skill/select-list')
-      setSkills(skillResponse.data.data)
+      const skillResponse = await axios.get("/animator-skill/select-list");
+      setSkills(skillResponse.data.data);
 
-      const levelResponse = await axios.get('/english-level/select-list')
-      setLevels(levelResponse.data.data)
+      const levelResponse = await axios.get("/english-level/select-list");
+      setLevels(levelResponse.data.data);
     } catch (error) {
-      console.error('Data fetch error:', error)
+      console.error("Data fetch error:", error);
     }
-  }
+  };
 
   useEffect(() => {
-    fetchData()
-  }, [])
+    fetchData();
+  }, []);
 
   function handleInput(id) {
     if (!selectedSkills.includes(id)) {
-      setSelectedSkills([...selectedSkills, id])
+      setSelectedSkills([...selectedSkills, id]);
     } else {
       setSelectedSkills(
         selectedSkills.filter((currentSkill) => currentSkill != id)
-      )
+      );
     }
-    console.log(selectedSkills)
+    console.log(selectedSkills);
   }
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    const formData = new FormData(e.target)
+    e.preventDefault();
+    const formData = new FormData(e.target);
 
     const data = {
       animator_skills: selectedSkills,
-    }
+    };
 
     for (let [name, value] of formData) {
-      Object.assign(data, data, { [name]: value })
+      Object.assign(data, data, { [name]: value });
     }
 
     if (otherSkill.trim().length > 0) {
       if (isChecked) {
-        selectedSkills.push(otherSkill)
+        selectedSkills.push(otherSkill);
       }
     }
 
     try {
-      const response = await axios.post('animator-appeal', data)
-      setFormSubmitted(true)
-      console.log('Form submit oldu!', response.data)
-      if (typeof onFormSubmit === 'function') {
-        onFormSubmit()
+      const response = await axios.post("animator-appeal", data);
+      setFormSubmitted(true);
+      console.log("Form submit oldu!", response.data);
+      if (typeof onFormSubmit === "function") {
+        onFormSubmit();
       }
     } catch (error) {
-      setIsValid(error.response.data.data)
-      setFormSubmitted(false)
-      console.error('Form submit olunmadı:', error)
+      setIsValid(error.response.data.data);
+      setFormSubmitted(false);
+      console.error("Form submit olunmadı:", error);
     }
-  }
+  };
 
   return (
     <div className="form-area">
@@ -98,7 +98,7 @@ const FormRow = ({ onFormSubmit }) => {
               type="email"
               id="email"
               name="email"
-              className={`input-row ${isValid?.email ? 'err' : ''}`}
+              className={`input-row ${isValid?.email ? "err" : ""}`}
             />
             {isValid?.email && (
               <span className="valid-msg">{...isValid?.email}</span>
@@ -112,7 +112,7 @@ const FormRow = ({ onFormSubmit }) => {
               type="text"
               id="fullName"
               name="name_surname"
-              className={`input-row ${isValid?.name_surname ? 'err' : ''}`}
+              className={`input-row ${isValid?.name_surname ? "err" : ""}`}
             />
             {isValid?.name_surname && (
               <span className="valid-msg">{...isValid?.name_surname}</span>
@@ -127,17 +127,14 @@ const FormRow = ({ onFormSubmit }) => {
               type="text"
               id="whatsappNumber"
               name="wp_phone"
-              className={`input-row ${isValid?.wp_phone ? 'err' : ''}`}
+              className={`input-row ${isValid?.wp_phone ? "err" : ""}`}
             />
             {isValid?.wp_phone && (
               <span className="valid-msg">{...isValid?.wp_phone}</span>
             )}
           </div>
           <div className="checkbox-field">
-            <p>
-              Animator peşəsinə aid bacarıqlarınızı qeyd edin:{' '}
-              <span className="star">*</span>
-            </p>
+            <p>Animator peşəsinə aid bacarıqlarınızı qeyd edin: </p>
             <div className="checkbox-wrapper">
               {skills.map((skill) => {
                 return (
@@ -149,7 +146,7 @@ const FormRow = ({ onFormSubmit }) => {
                     />
                     <label htmlFor={`skill_${skill.id}`}>{skill.name}</label>
                   </div>
-                )
+                );
               })}
 
               <div className="checkbox-area">
@@ -158,7 +155,7 @@ const FormRow = ({ onFormSubmit }) => {
                   id="otherSkill"
                   className="other-box"
                   onChange={(e) => {
-                    setIsChecked(e.target.checked)
+                    setIsChecked(e.target.checked);
                   }}
                 />
 
@@ -191,7 +188,7 @@ const FormRow = ({ onFormSubmit }) => {
               id="experience"
               name="animation_experience"
               className={`input-row ${
-                isValid?.animation_experience ? 'err' : ''
+                isValid?.animation_experience ? "err" : ""
               }`}
             />
             {isValid?.animation_experience && (
@@ -209,7 +206,7 @@ const FormRow = ({ onFormSubmit }) => {
               type="text"
               id="programs"
               name="program"
-              className={`input-row ${isValid?.program ? 'err' : ''}`}
+              className={`input-row ${isValid?.program ? "err" : ""}`}
             />
             {isValid?.program && (
               <span className="valid-msg">{...isValid?.program}</span>
@@ -237,7 +234,7 @@ const FormRow = ({ onFormSubmit }) => {
               onChange={handleChange}
               id="animationSample"
               name="animation_example"
-              className={`input-row ${isValid?.animation_example ? 'err' : ''}`}
+              className={`input-row ${isValid?.animation_example ? "err" : ""}`}
             />
             {isValid?.animation_example && (
               <span className="valid-msg">{...isValid?.animation_example}</span>
@@ -270,13 +267,13 @@ const FormRow = ({ onFormSubmit }) => {
                     id={`level_${level.id}`}
                     name="english_level"
                     value={level.id}
-                    className={isValid?.english_level ? 'border-red' : ''}
+                    className={isValid?.english_level ? "border-red" : ""}
                   />
                   <label htmlFor={`level_${level.id}`} className="radio-label">
                     {level.name}
                   </label>
                 </div>
-              )
+              );
             })}
             {isValid?.english_level && (
               <span className="valid-msg">{...isValid?.english_level}</span>
@@ -290,7 +287,7 @@ const FormRow = ({ onFormSubmit }) => {
         </form>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default FormRow
+export default FormRow;
