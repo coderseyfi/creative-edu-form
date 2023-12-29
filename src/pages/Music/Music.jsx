@@ -3,6 +3,7 @@ import FormRow from '../../components/FormRow/FormRow'
 import Hero from '../../components/Hero/Hero'
 import '../Animator/animator.scss'
 import MsusicBg from '../../assets/images/music.jpg'
+import MusicForm from '../../components/MusicForm/MusicForm'
 
 const Music = () => {
   const [showHeadBox, setShowHeadBox] = useState(false)
@@ -23,7 +24,7 @@ const Music = () => {
               <div className="text-area"></div>
             </div>
           )}
-          {/* <FormRow onFormSubmit={hideHeadBox} /> */}
+          <MusicForm onFormSubmit={hideHeadBox} />
         </div>
       </div>
     </>

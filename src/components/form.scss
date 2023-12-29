@@ -1,11 +1,11 @@
-@import '../scss/mixins.scss';
+@import "../scss/mixins.scss";
 .form-area {
   background-color: #f6f6f6;
   border-radius: 50px;
   .form {
     padding: 75px 50px;
     @include forPhone {
-      padding: 30px 15px;
+      padding: 60px 15px;
     }
     .input-field {
       display: flex;
@@ -43,7 +43,7 @@
           margin-bottom: 10px;
           display: flex;
           gap: 10px;
-          input[type='checkbox'] {
+          input[type="checkbox"] {
             width: 27px;
             height: 27px;
           }
@@ -91,7 +91,7 @@
         @include forPhone {
           margin-bottom: 19px;
         }
-        input[type='radio'] {
+        input[type="radio"] {
           width: 27px;
           height: 27px;
           @include forPhone {
@@ -185,5 +185,64 @@
 
   @include screen-xs {
     font-size: 22px;
+  }
+}
+
+.checkbox-row {
+  margin-bottom: 30px;
+  .checkbox-container {
+    display: inline-block;
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 18px;
+    font-family: "Inter", sans-serif;
+
+    @include screen-xs {
+      font-size: 16px;
+    }
+  }
+
+  .checkbox-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+  }
+
+  .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: #eee;
+    border: 1px solid #ccc;
+  }
+
+  .checkbox-container input:checked + .checkmark {
+    background-color: #2985e2;
+  }
+
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+
+  .checkbox-container input:checked + .checkmark:after {
+    display: block;
+  }
+
+  .checkbox-container .checkmark:after {
+    left: 4px;
+    top: 0px;
+    width: 7px;
+    height: 12px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
   }
 }

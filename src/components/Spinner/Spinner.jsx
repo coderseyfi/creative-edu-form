@@ -1,5 +1,5 @@
-import React from 'react'
-import ScaleLoader from 'react-spinners/ScaleLoader'
+import React from "react";
+import ScaleLoader from "react-spinners/ScaleLoader";
 
 const Spinner = () => {
   return (
@@ -14,7 +14,7 @@ const Spinner = () => {
         width={6}
       />
     </div>
-  )
-}
+  );
+};
 
-export default Spinner
+export default Spinner;
