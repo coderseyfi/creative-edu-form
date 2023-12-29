@@ -32,9 +32,9 @@
   overflow: auto;
   position: relative;
   z-index: 101;
-  border-radius: 87px;
+  border-radius: 31px;
   @include screen-xs {
-    border-radius: 50px;
+    border-radius: 31px;
     max-width: 95%;
     // margin: 0 auto;
   }
