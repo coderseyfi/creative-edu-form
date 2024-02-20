@@ -109,7 +109,7 @@ const ComedyForm = ({ onFormSubmit }) => {
     }
 
     if (!formData.learn_genre) {
-      errors.learn_genre = "Janr boş buraxıla bilməz";
+      errors.learn_genre = "Komediya janrı boş buraxıla bilməz";
     }
 
     if (formData.wp_phone.length > 15) {
