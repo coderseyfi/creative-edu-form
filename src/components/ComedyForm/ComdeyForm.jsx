@@ -159,6 +159,7 @@ const ComedyForm = ({ onFormSubmit }) => {
       return;
     }
 
+    console.log(permissionChecked);
     if (!permissionChecked) {
       setIsValid({
         permission: "Qeydiyyatı tamamlamaq üçün şərtlə razılaşın",
@@ -179,7 +180,7 @@ const ComedyForm = ({ onFormSubmit }) => {
       setLoading(true);
       const response = await axios.post("/comedy-appeal", formObject);
       setFormSubmitted(true);
-      console.log("Form submit oldu!", response.data);
+
       if (typeof onFormSubmit === "function") {
         onFormSubmit();
       }
@@ -327,7 +328,7 @@ const ComedyForm = ({ onFormSubmit }) => {
           </div>
           <div className="radio-field radio-music">
             <p className="radio-field__head">
-              Hansı komediya janrını öyrənmək istərdiniz?
+              Komediya janrı
               <span className="star">*</span>
             </p>
             {genres.map((genre) => {
