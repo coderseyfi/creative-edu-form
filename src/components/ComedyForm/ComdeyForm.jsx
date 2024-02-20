@@ -159,7 +159,6 @@ const ComedyForm = ({ onFormSubmit }) => {
       return;
     }
 
-    console.log(permissionChecked);
     if (!permissionChecked) {
       setIsValid({
         permission: "Qeydiyyatı tamamlamaq üçün şərtlə razılaşın",
@@ -331,7 +330,7 @@ const ComedyForm = ({ onFormSubmit }) => {
               Komediya janrı
               <span className="star">*</span>
             </p>
-            {genres.map((genre) => {
+            {genres.slice(1, 2).map((genre, index) => {
               return (
                 <div key={genre.id} className="radio-area">
                   <input

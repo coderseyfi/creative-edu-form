@@ -1,18 +1,18 @@
-import { useState } from 'react'
-import FormRow from '../../components/FormRow/FormRow'
-import Hero from '../../components/Hero/Hero'
-import '../Animator/animator.scss'
-import ComediaBg from '../../assets/images/Comedy.jpg'
-import ComedyForm from '../../components/ComedyForm/ComdeyForm'
+import { useState } from "react";
+import FormRow from "../../components/FormRow/FormRow";
+import Hero from "../../components/Hero/Hero";
+import "../Animator/animator.scss";
+import ComediaBg from "../../assets/images/Comedy.jpg";
+import ComedyForm from "../../components/ComedyForm/ComdeyForm";
 
 const Comedia = () => {
-  const [showHeadBox, setShowHeadBox] = useState(false)
+  const [showHeadBox, setShowHeadBox] = useState(false);
 
-  const imgUrl = ComediaBg
+  const imgUrl = ComediaBg;
 
   const hideHeadBox = () => {
-    setShowHeadBox(true)
-  }
+    setShowHeadBox(true);
+  };
   return (
     <>
       <Hero img={imgUrl} />
@@ -36,14 +36,14 @@ const Comedia = () => {
                   xadim və hətta ssenarist ola bilərlər.
                 </p>
               </div> */}
-              <h3 className="form-over">Qeydiyyat başa çatmışdır</h3>
+              {/* <h3 className="form-over">Qeydiyyat başa çatmışdır</h3> */}
             </div>
           )}
           <ComedyForm onFormSubmit={hideHeadBox} />
         </div>
       </section>
     </>
-  )
-}
+  );
+};
 
-export default Comedia
+export default Comedia;

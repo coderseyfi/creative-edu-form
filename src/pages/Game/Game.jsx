@@ -1,28 +1,27 @@
-import { useState } from 'react'
-import Hero from '../../components/Hero/Hero'
-import '../Animator/animator.scss'
-import GameBg from '../../assets/images/game.jpg'
-import GameAnimation from '../../components/GameAnimation/GameAnimation'
-import GameDesign from '../../components/GameDesign/GameDesign'
+import { useState } from "react";
+import Hero from "../../components/Hero/Hero";
+import "../Animator/animator.scss";
+import GameBg from "../../assets/images/game.jpg";
+import GameAnimation from "../../components/GameAnimation/GameAnimation";
+import GameDesign from "../../components/GameDesign/GameDesign";
 
 const Game = () => {
-  const [showHeadBox, setShowHeadBox] = useState(false)
-  const [showGameId, setShowGameId] = useState(null)
+  const [showHeadBox, setShowHeadBox] = useState(false);
+  const [showGameId, setShowGameId] = useState(null);
 
   const hideHeadBox = () => {
-    setShowHeadBox(true)
-  }
+    setShowHeadBox(true);
+  };
   const gameContent = {
     1: <GameAnimation onFormSubmit={hideHeadBox} />,
     2: <GameDesign onFormSubmit={hideHeadBox} />,
-  }
+  };
 
   const handleShowGame = (id) => {
-    console.log(showGameId)
-    setShowGameId(id)
-  }
+    setShowGameId(id);
+  };
 
-  const imgUrl = GameBg
+  const imgUrl = GameBg;
 
   return (
     <>
@@ -44,13 +43,15 @@ const Game = () => {
               </div>
               <div className="game-btns">
                 <button
-                  className={`btn ${showGameId === 1 ? 'active' : ''} `}
-                  onClick={() => handleShowGame(1)}>
+                  className={`btn ${showGameId === 1 ? "active" : ""} `}
+                  onClick={() => handleShowGame(1)}
+                >
                   <span>Oyun Animasiyası Kursu</span>
                 </button>
                 <button
-                  className={`btn ${showGameId === 2 ? 'active' : ''} `}
-                  onClick={() => handleShowGame(2)}>
+                  className={`btn ${showGameId === 2 ? "active" : ""} `}
+                  onClick={() => handleShowGame(2)}
+                >
                   <span>Oyun Dizaynı Kursu</span>
                 </button>
               </div>
@@ -60,7 +61,7 @@ const Game = () => {
         </div>
       </section>
     </>
-  )
-}
+  );
+};
 
-export default Game
+export default Game;
