@@ -108,9 +108,9 @@ const ComedyForm = ({ onFormSubmit }) => {
         "Komediya sahəsində təcrübəniz boş buraxıla bilməz";
     }
 
-    if (!formData.learn_genre) {
-      errors.learn_genre = "Komediya janrı boş buraxıla bilməz";
-    }
+    // if (!formData.learn_genre) {
+    //   errors.learn_genre = "Komediya janrı boş buraxıla bilməz";
+    // }
 
     if (formData.wp_phone.length > 15) {
       errors.wp_phone =
@@ -325,7 +325,8 @@ const ComedyForm = ({ onFormSubmit }) => {
               <span className="valid-msg">{...isValid?.have_experience}</span>
             )}
           </div>
-          <div className="radio-field radio-music">
+
+          {/* <div className="radio-field radio-music">
             <p className="radio-field__head">
               Komediya janrı
               <span className="star">*</span>
@@ -348,7 +349,8 @@ const ComedyForm = ({ onFormSubmit }) => {
             {isValid?.learn_genre && (
               <span className="valid-msg">{...isValid?.learn_genre}</span>
             )}
-          </div>
+          </div> */}
+
           <div className="checkbox-field">
             <p>
               Dil bacarıqlarınız <span className="star">*</span>
