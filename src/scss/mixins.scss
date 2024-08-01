@@ -1,5 +1,5 @@
 @mixin forPhone {
-  @media (min-width: 300px) and (max-width: 1575px) {
+  @media (min-width: 300px) and (max-width: 1120px) {
     @content;
   }
 }

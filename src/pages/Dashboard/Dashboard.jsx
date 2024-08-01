@@ -1,30 +1,31 @@
-import { useState } from 'react'
-import DashLine from '../../assets/ico/dashLine.svg'
-import './dashboard.scss'
-import { DUMMY_DASHBOARD } from '../../constants/constant'
-import Animator from '../Animator/Animator'
-import Procuders from '../Procuders/Procuders'
-import Modal from '../../components/Modal/Modal'
-import Comedia from '../../pages/Comedia/Comedia'
-import Game from '../../pages/Game/Game'
-import Music from '../Music/Music'
-import Graphic from '../Graphic/Graphic'
-import Cultech from '../CulTech/Cultech'
+import { useState } from "react";
+import DashLine from "../../assets/ico/dashLine.svg";
+import "./dashboard.scss";
+import { DUMMY_DASHBOARD } from "../../constants/constant";
+import Animator from "../Animator/Animator";
+import Procuders from "../Procuders/Procuders";
+import Modal from "../../components/Modal/Modal";
+import Comedia from "../../pages/Comedia/Comedia";
+import Game from "../../pages/Game/Game";
+import Music from "../Music/Music";
+import Graphic from "../Graphic/Graphic";
+import Cultech from "../CulTech/Cultech";
+import Scholarship from "../Scholarship/Scholarship";
 
 const Dashboard = () => {
-  const [openModalId, setOpenModalId] = useState(null)
+  const [openModalId, setOpenModalId] = useState(null);
 
   const openModal = (id) => {
-    setOpenModalId(id)
+    setOpenModalId(id);
     window.scrollTo({
       top: 0,
-      behavior: 'smooth',
-    })
-  }
+      behavior: "smooth",
+    });
+  };
 
   const closeModal = () => {
-    setOpenModalId(null)
-  }
+    setOpenModalId(null);
+  };
 
   const modalContent = {
     1: <Music />,
@@ -34,7 +35,8 @@ const Dashboard = () => {
     5: <Graphic />,
     6: <Game />,
     7: <Cultech />,
-  }
+    8: <Scholarship />,
+  };
 
   return (
     <section className="dashboard">
@@ -69,11 +71,12 @@ const Dashboard = () => {
                 <div
                   key={id}
                   className="grid__link"
-                  onClick={() => openModal(id)}>
+                  onClick={() => openModal(id)}
+                >
                   <img src={ico} alt="" />
                   <p className="grid__link__text">{text}</p>
                 </div>
-              )
+              );
             })}
           </div>
           <div className="grid">
@@ -82,11 +85,12 @@ const Dashboard = () => {
                 <div
                   key={id}
                   className="grid__link"
-                  onClick={() => openModal(id)}>
+                  onClick={() => openModal(id)}
+                >
                   <img src={ico} alt="" />
                   <p className="grid__link__text">{text}</p>
                 </div>
-              )
+              );
             })}
           </div>
         </div>
@@ -95,12 +99,13 @@ const Dashboard = () => {
         <Modal
           isOpen={true}
           onClose={closeModal}
-          title={DUMMY_DASHBOARD[openModalId - 1].text}>
+          title={DUMMY_DASHBOARD[openModalId - 1].text}
+        >
           {modalContent[openModalId]}
         </Modal>
       )}
     </section>
-  )
-}
+  );
+};
 
-export default Dashboard
+export default Dashboard;

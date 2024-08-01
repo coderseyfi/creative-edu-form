@@ -1,9 +1,9 @@
 @import "../scss/mixins.scss";
 .form-area {
   background-color: #f6f6f6;
-  border-radius: 50px;
+  border-radius: 30px;
   .form {
-    padding: 75px 50px;
+    padding: 50px;
     @include forPhone {
       padding: 60px 15px;
     }
@@ -131,6 +131,64 @@
     }
     .star {
       color: red;
+    }
+
+    // ant design
+
+    .form-item.disabled {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    .select__title {
+      margin-bottom: 8px;
+    }
+
+    .level-cap {
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      font-size: 24px;
+      margin-bottom: 6px;
+    }
+
+    .ant-input-lg,
+    .ant-select-lg,
+    .ant-picker {
+      height: 50px;
+    }
+
+    .ant-picker {
+      width: 100%;
+    }
+
+    .ant-form-item {
+      margin-bottom: 30px;
+    }
+
+    .ant-form-item-required {
+      align-items: flex-start !important;
+      font-size: 16px;
+    }
+
+    .ant-radio-group {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .first-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .ant-radio-button-wrapper {
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   }
   .form-submit-message {
