@@ -570,11 +570,13 @@ const Student = ({ onFormSubmit }) => {
                   </Form.Item>
                 </div>
 
-                <h4 className="level-cap">
-                  {eduLevel == 1
-                    ? "Bakalavriat səviyyəsi üzrə:"
-                    : "Magistratura səviyyəsi üzrə:"}
-                </h4>
+                {eduLevel && (
+                  <h4 className="level-cap">
+                    {eduLevel == 1
+                      ? "Bakalavriat səviyyəsi üzrə:"
+                      : "Magistratura səviyyəsi üzrə:"}
+                  </h4>
+                )}
 
                 <div className={`form-item ${eduLevel ? "" : "disabled"}`}>
                   <Form.Item
