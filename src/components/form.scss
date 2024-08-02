@@ -183,6 +183,24 @@
       display: flex;
       gap: 20px;
       justify-content: center;
+
+      @include screen-xs {
+        flex-direction: column;
+      }
+    }
+
+    .form-footer {
+      text-align: center;
+    }
+    .ant-btn {
+      padding: 30px 30px;
+      width: 50%;
+      span{
+        font-size: 20px;
+      }
+      @include screen-xs {
+        width: 100%;
+      }
     }
 
     .first-row {
@@ -198,7 +216,7 @@
     }
 
     .condition {
-      margin-bottom: 30px;
+      margin-bottom: 50px;
       span {
         font-size: 16px;
       }

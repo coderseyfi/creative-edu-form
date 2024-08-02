@@ -61,9 +61,10 @@ const Student = ({ onFormSubmit }) => {
       if (info.file.status === "done") {
         const fileInfo = info.file.response;
         const newFile = {
-          file_uuid: fileInfo.id,
-          file_path: fileInfo.storage_path,
-          type: uploadedFiles.length + 1,
+          uid: fileInfo.id,
+          name: info.file.name,
+          status: "done",
+          url: fileInfo.storage_path, // Backend'den dönen dosya URL'si
         };
         setUploadedFiles((prevFiles) => [...prevFiles, newFile]);
         message.success(`${info.file.name} file uploaded successfully`);
@@ -71,6 +72,7 @@ const Student = ({ onFormSubmit }) => {
         message.error(`${info.file.name} file upload failed.`);
       }
     },
+    defaultFileList: uploadedFiles,
   };
 
   const onSubmit = async (data) => {
@@ -719,7 +721,7 @@ const Student = ({ onFormSubmit }) => {
                           rules={[
                             {
                               required: true,
-                              message: "Ad boş buraxıla bilməz!",
+                              message: "Fayl əlavə edilməlidir!",
                             },
                           ]}
                           label={item.label}
