@@ -267,12 +267,8 @@ const Student = ({ onFormSubmit }) => {
                 name="is_parent"
               >
                 <Radio.Group onChange={handleAgeRangeChange}>
-                  <Radio.Button value="0">
-                    18 yaşdan yuxarı namizədlər üçün
-                  </Radio.Button>
-                  <Radio.Button value="1">
-                    Namizədin yaşı 15 -18 yaşı arası olduqda
-                  </Radio.Button>
+                  <Radio.Button value="1">15 -18 yaşı arası</Radio.Button>
+                  <Radio.Button value="0">18 yaşdan yuxarı</Radio.Button>
                 </Radio.Group>
               </Form.Item>
             </div>
