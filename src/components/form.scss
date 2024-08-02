@@ -203,6 +203,12 @@
       }
     }
 
+    .rule-parent{
+      .ant-radio-group{
+        justify-content: flex-start !important;
+      }
+    }
+
     .first-row {
       display: flex;
       align-items: center;

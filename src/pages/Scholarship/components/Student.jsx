@@ -423,123 +423,6 @@ const Student = ({ onFormSubmit }) => {
                   </Form.Item>
                 </div>
 
-                {ageRange === "1" && (
-                  <>
-                    <h3 className="section-title">Valideyn məlumatları:</h3>
-                    <div className="form-item">
-                      <Form.Item
-                        rules={[
-                          {
-                            required: true,
-                            message: "Valideynin adı boş buraxıla bilməz!",
-                          },
-                        ]}
-                        label="Ad"
-                        name="parent_first_name"
-                      >
-                        <Input
-                          size="large"
-                          placeholder="Valideynin adı daxil edin"
-                        />
-                      </Form.Item>
-                    </div>
-
-                    <div className="form-item">
-                      <Form.Item
-                        rules={[
-                          {
-                            required: true,
-                            message: "Valideynin soaydı boş buraxıla bilməz!",
-                          },
-                        ]}
-                        label="Soyad"
-                        name="parent_last_name"
-                      >
-                        <Input
-                          size="large"
-                          placeholder="Valideynin adı daxil edin"
-                        />
-                      </Form.Item>
-                    </div>
-
-                    <div className="form-item">
-                      <Form.Item
-                        rules={[
-                          {
-                            required: true,
-                            message: "Boş buraxıla bilməz!",
-                          },
-                        ]}
-                        name="parent_type"
-                      >
-                        <Radio.Group>
-                          {parentOrNot.map((item) => (
-                            <Radio value={item.id}>{item.name}</Radio>
-                          ))}
-                        </Radio.Group>
-                      </Form.Item>
-                    </div>
-
-                    <div className="form-item">
-                      <Form.Item
-                        rules={[
-                          {
-                            required: true,
-                            message:
-                              "Əlaqə telefon nömrəsi boş buraxıla bilməz!",
-                          },
-                          {
-                            pattern: /^[0-9+()/" "-]+$/,
-                            message:
-                              "Əlaqə telefon nömrəsi yalnız rəqəmlərdən ibarət olmalıdır!",
-                          },
-                          {
-                            max: 20,
-                            message:
-                              "Əlaqə telefon maksimum 20 simvoldan ibarət ola bilər!",
-                          },
-                          {
-                            min: 9,
-                            message:
-                              "Əlaqə telefon minimum 9 simvoldan ibarət ola bilər!",
-                          },
-                        ]}
-                        label="Əlaqə Telefonu"
-                        validateTrigger="onChange"
-                        name="parent_contact_phone"
-                      >
-                        <Input
-                          size="large"
-                          placeholder="Əlaqə telefon nömrəsi daxil edin"
-                        />
-                      </Form.Item>
-                    </div>
-
-                    <div className="form-item">
-                      <Form.Item
-                        rules={[
-                          {
-                            required: true,
-                            message:
-                              "Valideynin elektron poçtu boş buraxıla bilməz!",
-                          },
-                          {
-                            type: "email",
-                            message: "Düzgün elektron poçt ünvanı daxil edin!",
-                          },
-                        ]}
-                        label="Valideynin elektron poçtu"
-                        name="parent_email"
-                      >
-                        <Input
-                          size="large"
-                          placeholder="Valideynin elektron poçt ünvanı daxil edin"
-                        />
-                      </Form.Item>
-                    </div>
-                  </>
-                )}
-
                 <div className="form-item">
                   <Form.Item
                     rules={[
@@ -736,6 +619,124 @@ const Student = ({ onFormSubmit }) => {
                       Müəssisə və ixtisas/proqram seçimi:
                     </h3>
                   </div>
+                )}
+
+                {ageRange === "1" && (
+                  <>
+                    <h3 className="section-title">Valideyn məlumatları:</h3>
+                    <div className="form-item">
+                      <Form.Item
+                        rules={[
+                          {
+                            required: true,
+                            message: "Valideynin adı boş buraxıla bilməz!",
+                          },
+                        ]}
+                        label="Ad"
+                        name="parent_first_name"
+                      >
+                        <Input
+                          size="large"
+                          placeholder="Valideynin adı daxil edin"
+                        />
+                      </Form.Item>
+                    </div>
+
+                    <div className="form-item">
+                      <Form.Item
+                        rules={[
+                          {
+                            required: true,
+                            message: "Valideynin soaydı boş buraxıla bilməz!",
+                          },
+                        ]}
+                        label="Soyad"
+                        name="parent_last_name"
+                      >
+                        <Input
+                          size="large"
+                          placeholder="Valideynin adı daxil edin"
+                        />
+                      </Form.Item>
+                    </div>
+
+                    <div className="form-item">
+                      <Form.Item
+                        rules={[
+                          {
+                            required: true,
+                            message:
+                              "Əlaqə telefon nömrəsi boş buraxıla bilməz!",
+                          },
+                          {
+                            pattern: /^[0-9+()/" "-]+$/,
+                            message:
+                              "Əlaqə telefon nömrəsi yalnız rəqəmlərdən ibarət olmalıdır!",
+                          },
+                          {
+                            max: 20,
+                            message:
+                              "Əlaqə telefon maksimum 20 simvoldan ibarət ola bilər!",
+                          },
+                          {
+                            min: 9,
+                            message:
+                              "Əlaqə telefon minimum 9 simvoldan ibarət ola bilər!",
+                          },
+                        ]}
+                        label="Əlaqə Telefonu"
+                        validateTrigger="onChange"
+                        name="parent_contact_phone"
+                      >
+                        <Input
+                          size="large"
+                          placeholder="Əlaqə telefon nömrəsi daxil edin"
+                        />
+                      </Form.Item>
+                    </div>
+
+                    <div className="form-item ">
+                      <Form.Item
+                        rules={[
+                          {
+                            required: true,
+                            message:
+                              "Valideynin elektron poçtu boş buraxıla bilməz!",
+                          },
+                          {
+                            type: "email",
+                            message: "Düzgün elektron poçt ünvanı daxil edin!",
+                          },
+                        ]}
+                        label="Valideynin elektron poçtu"
+                        name="parent_email"
+                      >
+                        <Input
+                          size="large"
+                          placeholder="Valideynin elektron poçt ünvanı daxil edin"
+                        />
+                      </Form.Item>
+                    </div>
+
+                    <div className="form-item rule-parent">
+                      <Form.Item
+                        rules={[
+                          {
+                            required: true,
+                            message: "Qanuni nümayəndə boş buraxıla bilməz!",
+                          },
+                        ]}
+                        label="Qanuni nümayəndə:"
+                        name="parent_type"
+                      >
+                        <Radio.Group>
+                          {parentOrNot.map((item) => (
+                            <Radio value={item.id}>{item.name}</Radio>
+                          ))}
+                        </Radio.Group>
+                      </Form.Item>
+                    </div>
+                  </>
                 )}
 
                 <div className="form-item rule-area">
