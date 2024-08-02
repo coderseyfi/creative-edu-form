@@ -453,7 +453,7 @@ const Student = ({ onFormSubmit }) => {
                         rules={[
                           {
                             required: true,
-                            message: "Yaş aralığı seçilməlidir!",
+                            message: "Boş buraxıla bilməz!",
                           },
                         ]}
                         name="parent_type"
@@ -478,6 +478,16 @@ const Student = ({ onFormSubmit }) => {
                             pattern: /^[0-9+()/" "-]+$/,
                             message:
                               "Əlaqə telefon nömrəsi yalnız rəqəmlərdən ibarət olmalıdır!",
+                          },
+                          {
+                            max: 20,
+                            message:
+                              "FİN maksimum 20 simvoldan ibarət ola bilər!",
+                          },
+                          {
+                            min: 9,
+                            message:
+                              "FİN minimum 9 simvoldan ibarət ola bilər!",
                           },
                         ]}
                         label="Əlaqə Telefonu"
