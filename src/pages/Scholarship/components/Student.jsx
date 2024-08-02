@@ -12,13 +12,15 @@ import {
   Upload,
   message,
   Radio,
+  Checkbox,
 } from "antd";
-import { UploadOutlined } from "@ant-design/icons";
+import { InfoCircleOutlined, UploadOutlined } from "@ant-design/icons";
 import azAZ from "antd/es/locale/az_AZ";
 import dayjs from "dayjs";
 import "dayjs/locale/az";
 import instance from "../../../api/api";
 import Swal from "sweetalert2";
+import filePdf from "../../../assets/files/file.pdf";
 dayjs.locale("az");
 
 const Student = ({ onFormSubmit }) => {
@@ -72,6 +74,7 @@ const Student = ({ onFormSubmit }) => {
   };
 
   const onSubmit = async (data) => {
+    console.log(data);
     setLoading(true);
 
     const formData = {
@@ -86,7 +89,7 @@ const Student = ({ onFormSubmit }) => {
       await instance.post("/scholarship-programs-appeal", formData);
       console.log("Form submitted successfully");
       setFormSubmitted(true);
-      console.log(formSubmitted);
+      message.success("Müraciət uğurla göndərildi");
     } catch (error) {
       Swal.fire({
         title: "Xəta!",
@@ -97,7 +100,6 @@ const Student = ({ onFormSubmit }) => {
         confirmButtonText: "Bağla",
       });
       setFormSubmitted(false);
-      console.log(formSubmitted);
     } finally {
       setLoading(false);
     }
@@ -109,9 +111,21 @@ const Student = ({ onFormSubmit }) => {
   };
 
   const handleAgeRangeChange = (e) => {
-    setAgeRange(e.target.value);
+    const value = e.target.value;
+    setAgeRange(value);
     setShowForm(true);
+
+    if (value === "0") {
+      form.resetFields([
+        "parent_first_name",
+        "parent_last_name",
+        "parent_type",
+        "parent_contact_phone",
+        "parent_email",
+      ]);
+    }
   };
+
   const handleCountryChange = (value) => {
     if (value === "") {
       setEditingCountry(true);
@@ -368,11 +382,13 @@ const Student = ({ onFormSubmit }) => {
                       },
                       {
                         max: 20,
-                        message: "FİN maksimum 20 simvoldan ibarət ola bilər!",
+                        message:
+                          "Əlaqə telefon maksimum 20 simvoldan ibarət ola bilər!",
                       },
                       {
                         min: 9,
-                        message: "FİN minimum 9 simvoldan ibarət ola bilər!",
+                        message:
+                          "Əlaqə telefon minimum 9 simvoldan ibarət ola bilər!",
                       },
                     ]}
                     label="Əlaqə Telefonu"
@@ -482,12 +498,12 @@ const Student = ({ onFormSubmit }) => {
                           {
                             max: 20,
                             message:
-                              "FİN maksimum 20 simvoldan ibarət ola bilər!",
+                              "Əlaqə telefon maksimum 20 simvoldan ibarət ola bilər!",
                           },
                           {
                             min: 9,
                             message:
-                              "FİN minimum 9 simvoldan ibarət ola bilər!",
+                              "Əlaqə telefon minimum 9 simvoldan ibarət ola bilər!",
                           },
                         ]}
                         label="Əlaqə Telefonu"
@@ -722,12 +738,55 @@ const Student = ({ onFormSubmit }) => {
                   </div>
                 )}
 
+                <div className="form-item rule-area">
+                  <a className="rule-word" target="_blank" href={filePdf}>
+                    <div className="info">
+                      Qaydalar və şərtlər
+                      <InfoCircleOutlined />
+                    </div>
+                  </a>
+                  <Form.Item
+                    name="termsAgreement"
+                    valuePropName="checked"
+                    rules={[
+                      {
+                        required: true,
+                        message:
+                          "Qaydalar və şərtləri oxuyub razı olmalısınız!",
+                      },
+                    ]}
+                  >
+                    <Checkbox>Oxudum və razıyam</Checkbox>
+                  </Form.Item>
+                </div>
+
+                <div className="form-item condition">
+                  <Form.Item
+                    name="dataConsent"
+                    valuePropName="checked"
+                    rules={[
+                      {
+                        required: true,
+                        message:
+                          "Fərdi məlumatlar üçün razılığınızı bildirməlisiniz!",
+                      },
+                    ]}
+                  >
+                    <Checkbox>
+                      Fərdi məlumatlarımın "Fərdi məlumatlar haqqında"
+                      Azərbaycan Respublikasının Qanununa və digər normativ
+                      hüquqi aktların tələblərinə uyğun olaraq, Azərbaycan
+                      Respublikasının Mədəniyyət Nazirliyinə ötürülməsinə,
+                      habelə Azərbaycan Respublikasının Mədəniyyət Nazirliyi
+                      tərəfindən istifadəsinə razılıq verirəm.
+                    </Checkbox>
+                  </Form.Item>
+                </div>
+
                 <div className="form-footer">
-                  <div className="form-footer">
-                    <Button loading={loading} type="primary" htmlType="submit">
-                      Göndər
-                    </Button>
-                  </div>
+                  <Button loading={loading} type="primary" htmlType="submit">
+                    Göndər
+                  </Button>
                 </div>
               </>
             )}

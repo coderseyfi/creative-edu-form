@@ -196,6 +196,48 @@
       align-items: center;
       justify-content: center;
     }
+
+    .condition {
+      margin-bottom: 30px;
+      span {
+        font-size: 16px;
+      }
+    }
+    .rule-area {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+
+      span {
+        font-size: 16px;
+      }
+
+      a:hover {
+        svg {
+          fill: #69b1ff !important;
+        }
+      }
+
+      margin-bottom: 10px;
+
+      .info {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        .anticon-info-circle {
+          svg {
+            transition: 0.5s;
+            font-size: 23px;
+            fill: #1878ff;
+          }
+        }
+      }
+
+      .rule-word {
+        font-size: 24px;
+      }
+    }
   }
   .form-submit-message {
     display: flex;
