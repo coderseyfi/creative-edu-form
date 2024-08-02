@@ -32,6 +32,15 @@ const Student = ({ onFormSubmit }) => {
   const [institutionId, setInstitutionId] = useState(null);
   const [institutions, setInstitutions] = useState([]);
   const [uploadedFiles, setUploadedFiles] = useState([]);
+  const [programId, setProgramId] = useState(null);
+
+  const [editingCountry, setEditingCountry] = useState(false);
+  const [editingInstitution, setEditingInstitution] = useState(false);
+  const [editingProgram, setEditingProgram] = useState(false);
+
+  const [countryInput, setCountryInput] = useState("");
+  const [institutionInput, setInstitutionInput] = useState("");
+  const [programInput, setProgramInput] = useState("");
   const [form] = Form.useForm();
   const dateFormat = "DD-MM-YYYY";
 
@@ -63,6 +72,7 @@ const Student = ({ onFormSubmit }) => {
 
     const formData = {
       ...data,
+      birth_date: dayjs(data.birth_date).format("YYYY-MM-DD"),
       files: uploadedFiles,
     };
 
@@ -86,6 +96,33 @@ const Student = ({ onFormSubmit }) => {
   const handleAgeRangeChange = (e) => {
     setAgeRange(e.target.value);
     setShowForm(true);
+  };
+
+  const handleCountryChange = (value) => {
+    if (value === "other") {
+      setEditingCountry(true);
+    } else {
+      setCountryId(value);
+      setEditingCountry(false);
+    }
+  };
+
+  const handleInstitutionChange = (value) => {
+    if (value === "other") {
+      setEditingInstitution(true);
+    } else {
+      setInstitutionId(value);
+      setEditingInstitution(false);
+    }
+  };
+
+  const handleProgramChange = (value) => {
+    if (value === "other") {
+      setEditingProgram(true);
+    } else {
+      setProgramId(value);
+      setEditingProgram(false);
+    }
   };
 
   const currentItems =
@@ -270,6 +307,11 @@ const Student = ({ onFormSubmit }) => {
                               required: true,
                               message: "FİN boş buraxıla bilməz!",
                             },
+                            {
+                              max: 7,
+                              message:
+                                "FİN maksimum 7 simvoldan ibarət ola bilər!",
+                            },
                           ]}
                           label="FİN"
                           validateTrigger="onChange"
@@ -307,6 +349,16 @@ const Student = ({ onFormSubmit }) => {
                               pattern: /^[0-9+()/" "-]+$/,
                               message:
                                 "Əlaqə telefon nömrəsi yalnız rəqəmlərdən ibarət olmalıdır!",
+                            },
+                            {
+                              max: 20,
+                              message:
+                                "FİN maksimum 20 simvoldan ibarət ola bilər!",
+                            },
+                            {
+                              min: 9,
+                              message:
+                                "FİN minimum 9 simvoldan ibarət ola bilər!",
                             },
                           ]}
                           label="Əlaqə Telefonu"
@@ -486,6 +538,141 @@ const Student = ({ onFormSubmit }) => {
                         </Form.Item>
                       </div>
 
+                      <h4 className="level-cap">
+                        {eduLevel == 1
+                          ? "Bakalavriat səviyyəsi üzrə:"
+                          : "Magistratura səviyyəsi üzrə:"}
+                      </h4>
+
+                      <div className="form-item">
+                        <Form.Item
+                          rules={[
+                            {
+                              required: true,
+                              message: "Ölkə səviyyəsi boş buraxıla bilməz!",
+                            },
+                          ]}
+                          label="Ölkə"
+                          validateTrigger="onChange"
+                          name="country_id"
+                        >
+                          {editingCountry ? (
+                            <Input
+                              value={countryInput}
+                              onChange={(e) => setCountryInput(e.target.value)}
+                              placeholder="Özel ülke adı"
+                              onBlur={() => {
+                                setCountryId(countryInput);
+                                setEditingCountry(false);
+                              }}
+                            />
+                          ) : (
+                            <Select
+                              size="large"
+                              placeholder="Ölkə seçin"
+                              allowClear
+                              onChange={handleCountryChange}
+                              value={countryId}
+                            >
+                              {countries.map((country) => (
+                                <Option key={country.id} value={country.id}>
+                                  {country.name}
+                                </Option>
+                              ))}
+                              <Option value="other">Diger</Option>
+                            </Select>
+                          )}
+                        </Form.Item>
+                      </div>
+
+                      <div className="form-item">
+                        <Form.Item
+                          rules={[
+                            {
+                              required: true,
+                              message:
+                                "Ali təhsil səviyyəsi boş buraxıla bilməz!",
+                            },
+                          ]}
+                          label="Ali təhsil müəssisəsi"
+                          validateTrigger="onChange"
+                          name="educational_institution_id"
+                        >
+                          {editingInstitution ? (
+                            <Input
+                              value={institutionInput}
+                              onChange={(e) =>
+                                setInstitutionInput(e.target.value)
+                              }
+                              placeholder="Özel eğitim kurumu adı"
+                              onBlur={() => {
+                                setInstitutionId(institutionInput);
+                                setEditingInstitution(false);
+                              }}
+                            />
+                          ) : (
+                            <Select
+                              size="large"
+                              placeholder="Ali təhsil müəssisəsi seçin"
+                              allowClear
+                              onChange={handleInstitutionChange}
+                              value={institutionId}
+                            >
+                              {institutions.map((institution) => (
+                                <Option
+                                  key={institution.id}
+                                  value={institution.id}
+                                >
+                                  {institution.name}
+                                </Option>
+                              ))}
+                              <Option value="other">Diger</Option>
+                            </Select>
+                          )}
+                        </Form.Item>
+                      </div>
+
+                      <div className="form-item">
+                        <Form.Item
+                          rules={[
+                            {
+                              required: true,
+                              message: "Proqram səviyyəsi boş buraxıla bilməz!",
+                            },
+                          ]}
+                          label="İxtisas/proqram"
+                          validateTrigger="onChange"
+                          name="educational_program_id"
+                        >
+                          {editingProgram ? (
+                            <Input
+                              value={programInput}
+                              onChange={(e) => setProgramInput(e.target.value)}
+                              placeholder="Özel program adı"
+                              onBlur={() => {
+                                setProgramId(programInput);
+                                setEditingProgram(false);
+                              }}
+                            />
+                          ) : (
+                            <Select
+                              size="large"
+                              placeholder="Proqram seçin"
+                              allowClear
+                              onChange={handleProgramChange}
+                              value={programId}
+                            >
+                              {programs.map((program) => (
+                                <Option key={program.id} value={program.id}>
+                                  {program.name}
+                                </Option>
+                              ))}
+                              <Option value="other">Diger</Option>
+                            </Select>
+                          )}
+                        </Form.Item>
+                      </div>
+
                       {eduLevel && (
                         <div>
                           <h3 className="section-title">Sənədlər</h3>
@@ -526,121 +713,12 @@ const Student = ({ onFormSubmit }) => {
                         </div>
                       )}
 
-                      <h4 className="level-cap">
-                        {eduLevel == 1
-                          ? "Bakalavriat səviyyəsi üzrə:"
-                          : "Magistratura səviyyəsi üzrə:"}
-                      </h4>
-                      <div className="form-item">
-                        <Form.Item
-                          rules={[
-                            {
-                              required: true,
-                              message: "Ölkə səviyyəsi boş buraxıla bilməz!",
-                            },
-                          ]}
-                          label="Ölkə"
-                          validateTrigger="onChange"
-                          name="country_id"
-                        >
-                          <Select
-                            size="large"
-                            placeholder="Təhsil səviyyəsini seçin"
-                            allowClear
-                            onChange={(value) => {
-                              setCountryId(value);
-                              setInstitutions([]);
-                            }}
-                          >
-                            <Select.Option disabled>Ölkə seçin</Select.Option>
-                            {Array.isArray(countries) &&
-                              countries?.map((country) => (
-                                <Select.Option
-                                  key={country?.id}
-                                  value={country?.id}
-                                >
-                                  {country?.name}
-                                </Select.Option>
-                              ))}
-                          </Select>
-                        </Form.Item>
-                      </div>
-
-                      <div className="form-item">
-                        <Form.Item
-                          rules={[
-                            {
-                              required: true,
-                              message:
-                                "Ali təhsil səviyyəsi boş buraxıla bilməz!",
-                            },
-                          ]}
-                          label="Ali təhsil müəssisəsi"
-                          validateTrigger="onChange"
-                          name="educational_institution_id"
-                        >
-                          <Select
-                            size="large"
-                            placeholder="Təhsil səviyyəsini seçin"
-                            allowClear
-                            onChange={(value) => setInstitutionId(value)}
-                          >
-                            <Select.Option disabled>
-                              Ali təhsil müəssisəsi seçin
-                            </Select.Option>
-                            {Array.isArray(institutions) &&
-                              institutions?.map((institution) => (
-                                <Select.Option
-                                  key={institution.id}
-                                  value={institution.id}
-                                >
-                                  {institution.name}
-                                </Select.Option>
-                              ))}
-                          </Select>
-                        </Form.Item>
-                      </div>
-
-                      <div className="form-item">
-                        <Form.Item
-                          rules={[
-                            {
-                              required: true,
-                              message: "Proqram səviyyəsi boş buraxıla bilməz!",
-                            },
-                          ]}
-                          label="İxtisas/proqram"
-                          validateTrigger="onChange"
-                          name="educational_program_id"
-                        >
-                          <Select
-                            size="large"
-                            placeholder="Proqram seçin"
-                            allowClear
-                          >
-                            <Select.Option disabled>
-                              İxtisas/proqram seçin
-                            </Select.Option>
-                            {programs?.map((program) => (
-                              <Select.Option
-                                key={program.id}
-                                value={program.id}
-                              >
-                                {program.name}
-                              </Select.Option>
-                            ))}
-                          </Select>
-                        </Form.Item>
-                      </div>
-
                       <div className="form-footer">
-                        <Button
-                          htmlType="submit"
-                          className="btn btn-save"
-                          loading={loading}
-                        >
-                          Submit
-                        </Button>
+                        <div className="form-footer">
+                          <Button type="primary" htmlType="submit">
+                            Göndər
+                          </Button>
+                        </div>
                       </div>
                     </>
                   )}
