@@ -191,20 +191,20 @@
 
     .form-footer {
       text-align: center;
-    }
-    .ant-btn {
-      padding: 30px 30px;
-      width: 50%;
-      span{
-        font-size: 20px;
-      }
-      @include screen-xs {
-        width: 100%;
+      .ant-btn {
+        padding: 30px 30px;
+        width: 50%;
+        span {
+          font-size: 20px;
+        }
+        @include screen-xs {
+          width: 100%;
+        }
       }
     }
 
-    .rule-parent{
-      .ant-radio-group{
+    .rule-parent {
+      .ant-radio-group {
         justify-content: flex-start !important;
       }
     }

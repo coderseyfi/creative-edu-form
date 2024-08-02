@@ -461,6 +461,10 @@ const Student = ({ onFormSubmit }) => {
                   </h4>
                 )}
 
+                <h3 className="section-title">
+                  Müəssisə və ixtisas/proqram seçimi:
+                </h3>
+
                 <div className={`form-item ${eduLevel ? "" : "disabled"}`}>
                   <Form.Item
                     rules={[
@@ -614,10 +618,6 @@ const Student = ({ onFormSubmit }) => {
                         </Form.Item>
                       </div>
                     ))}
-
-                    <h3 className="section-title">
-                      Müəssisə və ixtisas/proqram seçimi:
-                    </h3>
                   </div>
                 )}
 
