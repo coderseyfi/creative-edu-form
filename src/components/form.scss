@@ -140,6 +140,11 @@
       pointer-events: none;
     }
 
+    .disabled {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
     .select__title {
       margin-bottom: 8px;
     }
@@ -156,6 +161,7 @@
 
     .ant-input-lg,
     .ant-select-lg,
+    .ant-input,
     .ant-picker {
       height: 50px;
     }

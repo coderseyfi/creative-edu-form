@@ -18,6 +18,7 @@ import azAZ from "antd/es/locale/az_AZ";
 import dayjs from "dayjs";
 import "dayjs/locale/az";
 import instance from "../../../api/api";
+import Swal from "sweetalert2";
 dayjs.locale("az");
 
 const Student = ({ onFormSubmit }) => {
@@ -41,6 +42,9 @@ const Student = ({ onFormSubmit }) => {
   const [countryInput, setCountryInput] = useState("");
   const [institutionInput, setInstitutionInput] = useState("");
   const [programInput, setProgramInput] = useState("");
+
+  const [able, setAble] = useState(false);
+
   const [form] = Form.useForm();
   const dateFormat = "DD-MM-YYYY";
 
@@ -81,44 +85,63 @@ const Student = ({ onFormSubmit }) => {
     try {
       await instance.post("/scholarship-programs-appeal", formData);
       console.log("Form submitted successfully");
+      setFormSubmitted(true);
+      console.log(formSubmitted);
     } catch (error) {
-      console.error("Form submission error:", error);
+      Swal.fire({
+        title: "Xəta!",
+        html: Object.entries(error.response.data.data)
+          .map(([key, value]) => `<p>${value}</p>`)
+          .join(""),
+        icon: "error",
+        confirmButtonText: "Bağla",
+      });
+      setFormSubmitted(false);
+      console.log(formSubmitted);
     } finally {
       setLoading(false);
     }
   };
 
   const handleLevelChange = (value) => {
-    console.log(value);
     setEduLevel(value);
+    setAble(true);
   };
 
   const handleAgeRangeChange = (e) => {
     setAgeRange(e.target.value);
     setShowForm(true);
   };
-
   const handleCountryChange = (value) => {
-    if (value === "other") {
+    if (value === "") {
       setEditingCountry(true);
+      setCountryId(null);
+      setInstitutions([]);
+      setPrograms([]);
     } else {
       setCountryId(value);
       setEditingCountry(false);
+      setInstitutions([]);
+      setPrograms([]);
     }
   };
 
   const handleInstitutionChange = (value) => {
-    if (value === "other") {
+    if (value === "") {
       setEditingInstitution(true);
+      setInstitutionId(null);
+      setPrograms([]);
     } else {
       setInstitutionId(value);
       setEditingInstitution(false);
+      setPrograms([]);
     }
   };
 
   const handleProgramChange = (value) => {
-    if (value === "other") {
+    if (value === "") {
       setEditingProgram(true);
+      setProgramId(null);
     } else {
       setProgramId(value);
       setEditingProgram(false);
@@ -145,590 +168,563 @@ const Student = ({ onFormSubmit }) => {
       }
     };
 
-    const fetchInstitutions = async (selectedCountryId) => {
-      if (!selectedCountryId) return;
-
-      try {
-        const response = await instance.get(
-          "/scholarship-programs-appeal/select-list/institutions",
-          {
-            params: {
-              country_id: selectedCountryId,
-            },
-          }
-        );
-        console.log("Institutions:", response.data);
-        setInstitutions(response.data.data);
-      } catch (error) {
-        message.error("Error fetching institutions");
-      }
-    };
-
-    const fetchPrograms = async (selectedInstitutionId) => {
-      if (!selectedInstitutionId) return;
-
-      try {
-        const response = await instance.get(
-          "/scholarship-programs-appeal/select-list/programs",
-          {
-            params: {
-              institution_id: selectedInstitutionId,
-            },
-          }
-        );
-        setPrograms(response.data.data);
-      } catch (error) {
-        message.error("Error fetching programs");
-      }
-    };
-
     if (eduLevel) {
       fetchCountries();
     }
+  }, [eduLevel]);
 
-    if (countryId) {
+  useEffect(() => {
+    const fetchInstitutions = async (selectedCountryId) => {
+      if (typeof selectedCountryId === "number") {
+        // Check if countryId is a number
+        try {
+          const response = await instance.get(
+            "/scholarship-programs-appeal/select-list/institutions",
+            {
+              params: {
+                country_id: selectedCountryId,
+              },
+            }
+          );
+          console.log("Institutions:", response.data);
+          setInstitutions(response.data.data);
+        } catch (error) {
+          message.error("Error fetching institutions");
+        }
+      }
+    };
+
+    if (typeof countryId === "number") {
       fetchInstitutions(countryId);
     }
+  }, [countryId]);
 
-    if (institutionId) {
+  useEffect(() => {
+    const fetchPrograms = async (selectedInstitutionId) => {
+      if (typeof selectedInstitutionId === "number") {
+        try {
+          const response = await instance.get(
+            "/scholarship-programs-appeal/select-list/programs",
+            {
+              params: {
+                institution_id: selectedInstitutionId,
+              },
+            }
+          );
+          setPrograms(response.data.data);
+        } catch (error) {
+          message.error("Error fetching programs");
+        }
+      }
+    };
+
+    if (typeof institutionId === "number") {
       fetchPrograms(institutionId);
     }
-  }, [eduLevel, countryId, institutionId]);
+  }, [institutionId]);
 
   return (
-    <>
-      <div className="form-area">
-        {formSubmitted ? (
-          <div className="form-submit-message">
-            <div className="submit-box">
-              <img src={Submit} alt="" />
-              <p className="success">Müraciətiniz uğurla göndərildi</p>
-            </div>
+    <div className="form-area">
+      {formSubmitted ? (
+        <div className="form-submit-message">
+          <div className="submit-box">
+            <img src={Submit} alt="" />
+            <p className="success">Müraciətiniz uğurla göndərildi</p>
           </div>
-        ) : (
-          <div className="form-area">
-            {formSubmitted ? (
-              <div className="form-submit-message">
-                <div className="submit-box">
-                  <img src={Submit} alt="" />
-                  <p className="success">Müraciətiniz uğurla göndərildi</p>
-                </div>
-              </div>
-            ) : (
-              <Form
-                className="form"
-                layout="vertical"
-                onFinish={onSubmit}
-                form={form}
+        </div>
+      ) : (
+        <Form
+          className="form"
+          layout="vertical"
+          onFinish={onSubmit}
+          form={form}
+        >
+          <div className="form-row">
+            <div className="form-item first-row">
+              <Form.Item
+                rules={[
+                  {
+                    required: true,
+                    message: "Yaş aralığı seçilməlidir!",
+                  },
+                ]}
+                name="is_parent"
               >
-                <div className="form-row">
-                  <div className="form-item first-row">
+                <Radio.Group onChange={handleAgeRangeChange}>
+                  <Radio.Button value="0">
+                    18 yaşdan yuxarı namizədlər üçün
+                  </Radio.Button>
+                  <Radio.Button value="1">
+                    Namizədin yaşı 15 -18 yaşı arası olduqda
+                  </Radio.Button>
+                </Radio.Group>
+              </Form.Item>
+            </div>
+
+            {showForm && (
+              <>
+                <div className="form-item">
+                  <Form.Item
+                    label="Ad"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Ad boş buraxıla bilməz!",
+                      },
+                    ]}
+                    validateTrigger="onChange"
+                    name="first_name"
+                  >
+                    <Input size="large" placeholder="Ad daxil edin" />
+                  </Form.Item>
+                </div>
+
+                <div className="form-item">
+                  <Form.Item
+                    rules={[
+                      {
+                        required: true,
+                        message: "Soyad boş buraxıla bilməz!",
+                      },
+                    ]}
+                    label="Soyad"
+                    validateTrigger="onChange"
+                    name="last_name"
+                  >
+                    <Input size="large" placeholder="Soyad daxil edin" />
+                  </Form.Item>
+                </div>
+
+                <div className="form-item">
+                  <ConfigProvider locale={azAZ}>
                     <Form.Item
                       rules={[
                         {
                           required: true,
-                          message: "Yaş aralığı seçilməlidir!",
+                          message: "Doğum tarixi boş buraxıla bilməz!",
                         },
                       ]}
-                      name="is_parent"
+                      label="Doğum tarixi"
+                      validateTrigger="onChange"
+                      name="birth_date"
                     >
-                      <Radio.Group onChange={handleAgeRangeChange}>
-                        <Radio.Button value="0">
-                          18 yaşdan yuxarı namizədlər üçün
-                        </Radio.Button>
-                        <Radio.Button value="1">
-                          Namizədin yaşı 15 -18 yaşı arası olduqda
-                        </Radio.Button>
-                      </Radio.Group>
+                      <DatePicker
+                        size="large"
+                        placeholder="Doğum tarixi seçin"
+                        disabledDate={disabledDate}
+                        format={dateFormat}
+                      />
                     </Form.Item>
-                  </div>
+                  </ConfigProvider>
+                </div>
 
-                  {showForm && (
-                    <>
-                      <div className="form-item">
+                <div className="form-item">
+                  <Form.Item
+                    rules={[
+                      {
+                        required: true,
+                        message: "FİN boş buraxıla bilməz!",
+                      },
+                      {
+                        len: 7,
+                        message: "FİN yalnızca 7 simvoldan ibarət olmalıdır!",
+                      },
+                    ]}
+                    label="FİN"
+                    validateTrigger="onChange"
+                    name="pin"
+                  >
+                    <Input size="large" placeholder="FİN daxil edin" />
+                  </Form.Item>
+                </div>
+
+                <div className="form-item">
+                  <Form.Item
+                    rules={[
+                      {
+                        required: true,
+                        message: "Ünvan boş buraxıla bilməz!",
+                      },
+                    ]}
+                    label="Ünvan"
+                    validateTrigger="onChange"
+                    name="address"
+                  >
+                    <Input size="large" placeholder="Ünvan daxil edin" />
+                  </Form.Item>
+                </div>
+
+                <div className="form-item">
+                  <Form.Item
+                    rules={[
+                      {
+                        required: true,
+                        message: "Əlaqə telefon nömrəsi boş buraxıla bilməz!",
+                      },
+                      {
+                        pattern: /^[0-9+()/" "-]+$/,
+                        message:
+                          "Əlaqə telefon nömrəsi yalnız rəqəmlərdən ibarət olmalıdır!",
+                      },
+                      {
+                        max: 20,
+                        message: "FİN maksimum 20 simvoldan ibarət ola bilər!",
+                      },
+                      {
+                        min: 9,
+                        message: "FİN minimum 9 simvoldan ibarət ola bilər!",
+                      },
+                    ]}
+                    label="Əlaqə Telefonu"
+                    validateTrigger="onChange"
+                    name="contact_phone"
+                  >
+                    <Input
+                      size="large"
+                      placeholder="Əlaqə telefon nömrəsi daxil edin"
+                    />
+                  </Form.Item>
+                </div>
+
+                <div className="form-item">
+                  <Form.Item
+                    rules={[
+                      {
+                        required: true,
+                        message: "Elektron poçt boş buraxıla bilməz!",
+                      },
+                      {
+                        type: "email",
+                        message: "Düzgün elektron poçt ünvanı daxil edin!",
+                      },
+                    ]}
+                    label="Elektron poçt"
+                    validateTrigger="onChange"
+                    name="email"
+                  >
+                    <Input
+                      size="large"
+                      placeholder="Elektron poçt ünvanı daxil edin"
+                    />
+                  </Form.Item>
+                </div>
+
+                {ageRange === "1" && (
+                  <>
+                    <h3 className="section-title">Valideyn məlumatları:</h3>
+                    <div className="form-item">
+                      <Form.Item
+                        rules={[
+                          {
+                            required: true,
+                            message: "Valideynin adı boş buraxıla bilməz!",
+                          },
+                        ]}
+                        label="Ad"
+                        name="parent_first_name"
+                      >
+                        <Input
+                          size="large"
+                          placeholder="Valideynin adı daxil edin"
+                        />
+                      </Form.Item>
+                    </div>
+
+                    <div className="form-item">
+                      <Form.Item
+                        rules={[
+                          {
+                            required: true,
+                            message: "Valideynin soaydı boş buraxıla bilməz!",
+                          },
+                        ]}
+                        label="Soyad"
+                        name="parent_last_name"
+                      >
+                        <Input
+                          size="large"
+                          placeholder="Valideynin adı daxil edin"
+                        />
+                      </Form.Item>
+                    </div>
+
+                    <div className="form-item">
+                      <Form.Item
+                        rules={[
+                          {
+                            required: true,
+                            message: "Yaş aralığı seçilməlidir!",
+                          },
+                        ]}
+                        name="parent_type"
+                      >
+                        <Radio.Group>
+                          {parentOrNot.map((item) => (
+                            <Radio value={item.id}>{item.name}</Radio>
+                          ))}
+                        </Radio.Group>
+                      </Form.Item>
+                    </div>
+
+                    <div className="form-item">
+                      <Form.Item
+                        rules={[
+                          {
+                            required: true,
+                            message:
+                              "Əlaqə telefon nömrəsi boş buraxıla bilməz!",
+                          },
+                          {
+                            pattern: /^[0-9+()/" "-]+$/,
+                            message:
+                              "Əlaqə telefon nömrəsi yalnız rəqəmlərdən ibarət olmalıdır!",
+                          },
+                        ]}
+                        label="Əlaqə Telefonu"
+                        validateTrigger="onChange"
+                        name="parent_contact_phone"
+                      >
+                        <Input
+                          size="large"
+                          placeholder="Əlaqə telefon nömrəsi daxil edin"
+                        />
+                      </Form.Item>
+                    </div>
+
+                    <div className="form-item">
+                      <Form.Item
+                        rules={[
+                          {
+                            required: true,
+                            message:
+                              "Valideynin elektron poçtu boş buraxıla bilməz!",
+                          },
+                          {
+                            type: "email",
+                            message: "Düzgün elektron poçt ünvanı daxil edin!",
+                          },
+                        ]}
+                        label="Valideynin elektron poçtu"
+                        name="parent_email"
+                      >
+                        <Input
+                          size="large"
+                          placeholder="Valideynin elektron poçt ünvanı daxil edin"
+                        />
+                      </Form.Item>
+                    </div>
+                  </>
+                )}
+
+                <div className="form-item">
+                  <Form.Item
+                    rules={[
+                      {
+                        required: true,
+                        message: "Təhsil səviyyəsi boş buraxıla bilməz!",
+                      },
+                    ]}
+                    label="Təqaüd Proqramı üzrə təhsil alacağı səviyyə"
+                    validateTrigger="onChange"
+                    name="education_level_id"
+                  >
+                    <Select
+                      size="large"
+                      placeholder="Təhsil səviyyəsini seçin"
+                      allowClear
+                      onChange={handleLevelChange}
+                    >
+                      <Select.Option disabled>
+                        Təhsil səviyyəsini seçin
+                      </Select.Option>
+                      {eduLevels.map((level) => (
+                        <Select.Option key={level.id} value={level.id}>
+                          {level.name}
+                        </Select.Option>
+                      ))}
+                    </Select>
+                  </Form.Item>
+                </div>
+
+                <h4 className="level-cap">
+                  {eduLevel == 1
+                    ? "Bakalavriat səviyyəsi üzrə:"
+                    : "Magistratura səviyyəsi üzrə:"}
+                </h4>
+
+                <div className={`form-item ${eduLevel ? "" : "disabled"}`}>
+                  <Form.Item
+                    rules={[
+                      {
+                        required: true,
+                        message: "Ölkə səviyyəsi boş buraxıla bilməz!",
+                      },
+                    ]}
+                    label="Ölkə"
+                    validateTrigger="onChange"
+                    name="country_id"
+                  >
+                    {editingCountry ? (
+                      <Input
+                        value={countryInput}
+                        onChange={(e) => setCountryInput(e.target.value)}
+                        placeholder="Ölkə adı daxil edin"
+                        onBlur={() => {
+                          setCountryId(countryInput);
+                          setEditingCountry(false);
+                        }}
+                      />
+                    ) : (
+                      <Select
+                        size="large"
+                        placeholder="Ölkə seçin"
+                        allowClear
+                        onChange={handleCountryChange}
+                        value={countryId}
+                        disabled={!eduLevel}
+                      >
+                        {countries.map((country) => (
+                          <Option key={country.id} value={country.id}>
+                            {country.name}
+                          </Option>
+                        ))}
+                        <Option value="">Digər</Option>
+                      </Select>
+                    )}
+                  </Form.Item>
+                </div>
+
+                <div className={`form-item ${countryId ? "" : "disabled"}`}>
+                  <Form.Item
+                    rules={[
+                      {
+                        required: true,
+                        message: "Ali təhsil səviyyəsi boş buraxıla bilməz!",
+                      },
+                    ]}
+                    label="Ali təhsil müəssisəsi"
+                    validateTrigger="onChange"
+                    name="educational_institution_id"
+                  >
+                    {editingInstitution ? (
+                      <Input
+                        value={institutionInput}
+                        onChange={(e) => setInstitutionInput(e.target.value)}
+                        placeholder="Ali təhsil səviyyəsi daxil edin"
+                        onBlur={() => {
+                          setInstitutionId(institutionInput);
+                          setEditingInstitution(false);
+                        }}
+                      />
+                    ) : (
+                      <Select
+                        size="large"
+                        placeholder="Ali təhsil müəssisəsi seçin"
+                        allowClear
+                        onChange={handleInstitutionChange}
+                        value={institutionId}
+                        disabled={!countryId} // Disable if no country is selected
+                      >
+                        {institutions.map((institution) => (
+                          <Option key={institution.id} value={institution.id}>
+                            {institution.name}
+                          </Option>
+                        ))}
+                        <Option value="">Digər</Option>
+                      </Select>
+                    )}
+                  </Form.Item>
+                </div>
+
+                <div className={`form-item ${institutionId ? "" : "disabled"}`}>
+                  <Form.Item
+                    rules={[
+                      {
+                        required: true,
+                        message: "Proqram səviyyəsi boş buraxıla bilməz!",
+                      },
+                    ]}
+                    label="İxtisas/proqram"
+                    validateTrigger="onChange"
+                    name="educational_program_id"
+                  >
+                    {editingProgram ? (
+                      <Input
+                        value={programInput}
+                        onChange={(e) => setProgramInput(e.target.value)}
+                        placeholder="Proqram daxil edin"
+                        onBlur={() => {
+                          setProgramId(programInput);
+                          setEditingProgram(false);
+                        }}
+                      />
+                    ) : (
+                      <Select
+                        size="large"
+                        placeholder="Proqram seçin"
+                        allowClear
+                        onChange={handleProgramChange}
+                        value={programId}
+                        disabled={!institutionId}
+                      >
+                        {programs.map((program) => (
+                          <Option key={program.id} value={program.id}>
+                            {program.name}
+                          </Option>
+                        ))}
+                        <Option value="">Digər</Option>
+                      </Select>
+                    )}
+                  </Form.Item>
+                </div>
+
+                {eduLevel && (
+                  <div>
+                    <h3 className="section-title">Sənədlər</h3>
+                    <h4 className="level-cap">
+                      {eduLevel === 1
+                        ? "Bakalavriat səviyyəsi üzrə:"
+                        : "Magistratura səviyyəsi üzrə:"}
+                    </h4>
+
+                    {currentItems.map((item, index) => (
+                      <div key={index} className={`form-item`}>
                         <Form.Item
-                          label="Ad"
                           rules={[
                             {
                               required: true,
                               message: "Ad boş buraxıla bilməz!",
                             },
                           ]}
+                          label={item.label}
                           validateTrigger="onChange"
-                          name="first_name"
                         >
-                          <Input size="large" placeholder="Ad daxil edin" />
+                          <Upload {...props} listType="picture" maxCount={1}>
+                            <Button icon={<UploadOutlined />}>Əlavə et</Button>
+                          </Upload>
                         </Form.Item>
                       </div>
+                    ))}
 
-                      <div className="form-item">
-                        <Form.Item
-                          rules={[
-                            {
-                              required: true,
-                              message: "Soyad boş buraxıla bilməz!",
-                            },
-                          ]}
-                          label="Soyad"
-                          validateTrigger="onChange"
-                          name="last_name"
-                        >
-                          <Input size="large" placeholder="Soyad daxil edin" />
-                        </Form.Item>
-                      </div>
+                    <h3 className="section-title">
+                      Müəssisə və ixtisas/proqram seçimi:
+                    </h3>
+                  </div>
+                )}
 
-                      <div className="form-item">
-                        <ConfigProvider locale={azAZ}>
-                          <Form.Item
-                            rules={[
-                              {
-                                required: true,
-                                message: "Doğum tarixi boş buraxıla bilməz!",
-                              },
-                            ]}
-                            label="Doğum tarixi"
-                            validateTrigger="onChange"
-                            name="birth_date"
-                          >
-                            <DatePicker
-                              size="large"
-                              placeholder="Doğum tarixi seçin"
-                              disabledDate={disabledDate}
-                              format={dateFormat}
-                            />
-                          </Form.Item>
-                        </ConfigProvider>
-                      </div>
-
-                      <div className="form-item">
-                        <Form.Item
-                          rules={[
-                            {
-                              required: true,
-                              message: "FİN boş buraxıla bilməz!",
-                            },
-                            {
-                              max: 7,
-                              message:
-                                "FİN maksimum 7 simvoldan ibarət ola bilər!",
-                            },
-                          ]}
-                          label="FİN"
-                          validateTrigger="onChange"
-                          name="pin"
-                        >
-                          <Input size="large" placeholder="FİN daxil edin" />
-                        </Form.Item>
-                      </div>
-
-                      <div className="form-item">
-                        <Form.Item
-                          rules={[
-                            {
-                              required: true,
-                              message: "Ünvan boş buraxıla bilməz!",
-                            },
-                          ]}
-                          label="Ünvan"
-                          validateTrigger="onChange"
-                          name="address"
-                        >
-                          <Input size="large" placeholder="Ünvan daxil edin" />
-                        </Form.Item>
-                      </div>
-
-                      <div className="form-item">
-                        <Form.Item
-                          rules={[
-                            {
-                              required: true,
-                              message:
-                                "Əlaqə telefon nömrəsi boş buraxıla bilməz!",
-                            },
-                            {
-                              pattern: /^[0-9+()/" "-]+$/,
-                              message:
-                                "Əlaqə telefon nömrəsi yalnız rəqəmlərdən ibarət olmalıdır!",
-                            },
-                            {
-                              max: 20,
-                              message:
-                                "FİN maksimum 20 simvoldan ibarət ola bilər!",
-                            },
-                            {
-                              min: 9,
-                              message:
-                                "FİN minimum 9 simvoldan ibarət ola bilər!",
-                            },
-                          ]}
-                          label="Əlaqə Telefonu"
-                          validateTrigger="onChange"
-                          name="contact_phone"
-                        >
-                          <Input
-                            size="large"
-                            placeholder="Əlaqə telefon nömrəsi daxil edin"
-                          />
-                        </Form.Item>
-                      </div>
-
-                      <div className="form-item">
-                        <Form.Item
-                          rules={[
-                            {
-                              required: true,
-                              message: "Elektron poçt boş buraxıla bilməz!",
-                            },
-                            {
-                              type: "email",
-                              message:
-                                "Düzgün elektron poçt ünvanı daxil edin!",
-                            },
-                          ]}
-                          label="Elektron poçt"
-                          validateTrigger="onChange"
-                          name="email"
-                        >
-                          <Input
-                            size="large"
-                            placeholder="Elektron poçt ünvanı daxil edin"
-                          />
-                        </Form.Item>
-                      </div>
-
-                      {ageRange === "1" && (
-                        <>
-                          <h3 className="section-title">
-                            Valideyn məlumatları:
-                          </h3>
-                          <div className="form-item">
-                            <Form.Item
-                              rules={[
-                                {
-                                  required: true,
-                                  message:
-                                    "Valideynin adı boş buraxıla bilməz!",
-                                },
-                              ]}
-                              label="Ad"
-                              name="parent_first_name"
-                            >
-                              <Input
-                                size="large"
-                                placeholder="Valideynin adı daxil edin"
-                              />
-                            </Form.Item>
-                          </div>
-
-                          <div className="form-item">
-                            <Form.Item
-                              rules={[
-                                {
-                                  required: true,
-                                  message:
-                                    "Valideynin soaydı boş buraxıla bilməz!",
-                                },
-                              ]}
-                              label="Soyad"
-                              name="parent_last_name"
-                            >
-                              <Input
-                                size="large"
-                                placeholder="Valideynin adı daxil edin"
-                              />
-                            </Form.Item>
-                          </div>
-
-                          <div className="form-item">
-                            <Form.Item
-                              rules={[
-                                {
-                                  required: true,
-                                  message: "Yaş aralığı seçilməlidir!",
-                                },
-                              ]}
-                              name="parent_type"
-                            >
-                              <Radio.Group>
-                                {parentOrNot.map((item) => (
-                                  <Radio value={item.id}>{item.name}</Radio>
-                                ))}
-                              </Radio.Group>
-                            </Form.Item>
-                          </div>
-
-                          <div className="form-item">
-                            <Form.Item
-                              rules={[
-                                {
-                                  required: true,
-                                  message:
-                                    "Əlaqə telefon nömrəsi boş buraxıla bilməz!",
-                                },
-                                {
-                                  pattern: /^[0-9+()/" "-]+$/,
-                                  message:
-                                    "Əlaqə telefon nömrəsi yalnız rəqəmlərdən ibarət olmalıdır!",
-                                },
-                              ]}
-                              label="Əlaqə Telefonu"
-                              validateTrigger="onChange"
-                              name="parent_contact_phone"
-                            >
-                              <Input
-                                size="large"
-                                placeholder="Əlaqə telefon nömrəsi daxil edin"
-                              />
-                            </Form.Item>
-                          </div>
-
-                          <div className="form-item">
-                            <Form.Item
-                              rules={[
-                                {
-                                  required: true,
-                                  message:
-                                    "Valideynin elektron poçtu boş buraxıla bilməz!",
-                                },
-                                {
-                                  type: "email",
-                                  message:
-                                    "Düzgün elektron poçt ünvanı daxil edin!",
-                                },
-                              ]}
-                              label="Valideynin elektron poçtu"
-                              name="parent_email"
-                            >
-                              <Input
-                                size="large"
-                                placeholder="Valideynin elektron poçt ünvanı daxil edin"
-                              />
-                            </Form.Item>
-                          </div>
-                        </>
-                      )}
-
-                      <div className="form-item">
-                        <Form.Item
-                          rules={[
-                            {
-                              required: true,
-                              message: "Təhsil səviyyəsi boş buraxıla bilməz!",
-                            },
-                          ]}
-                          label="Təqaüd Proqramı üzrə təhsil alacağı səviyyə"
-                          validateTrigger="onChange"
-                          name="education_level_id"
-                        >
-                          <Select
-                            size="large"
-                            placeholder="Təhsil səviyyəsini seçin"
-                            allowClear
-                            onChange={handleLevelChange}
-                          >
-                            <Select.Option disabled>
-                              Təhsil səviyyəsini seçin
-                            </Select.Option>
-                            {eduLevels.map((level) => (
-                              <Select.Option key={level.id} value={level.id}>
-                                {level.name}
-                              </Select.Option>
-                            ))}
-                          </Select>
-                        </Form.Item>
-                      </div>
-
-                      <h4 className="level-cap">
-                        {eduLevel == 1
-                          ? "Bakalavriat səviyyəsi üzrə:"
-                          : "Magistratura səviyyəsi üzrə:"}
-                      </h4>
-
-                      <div className="form-item">
-                        <Form.Item
-                          rules={[
-                            {
-                              required: true,
-                              message: "Ölkə səviyyəsi boş buraxıla bilməz!",
-                            },
-                          ]}
-                          label="Ölkə"
-                          validateTrigger="onChange"
-                          name="country_id"
-                        >
-                          {editingCountry ? (
-                            <Input
-                              value={countryInput}
-                              onChange={(e) => setCountryInput(e.target.value)}
-                              placeholder="Özel ülke adı"
-                              onBlur={() => {
-                                setCountryId(countryInput);
-                                setEditingCountry(false);
-                              }}
-                            />
-                          ) : (
-                            <Select
-                              size="large"
-                              placeholder="Ölkə seçin"
-                              allowClear
-                              onChange={handleCountryChange}
-                              value={countryId}
-                            >
-                              {countries.map((country) => (
-                                <Option key={country.id} value={country.id}>
-                                  {country.name}
-                                </Option>
-                              ))}
-                              <Option value="other">Diger</Option>
-                            </Select>
-                          )}
-                        </Form.Item>
-                      </div>
-
-                      <div className="form-item">
-                        <Form.Item
-                          rules={[
-                            {
-                              required: true,
-                              message:
-                                "Ali təhsil səviyyəsi boş buraxıla bilməz!",
-                            },
-                          ]}
-                          label="Ali təhsil müəssisəsi"
-                          validateTrigger="onChange"
-                          name="educational_institution_id"
-                        >
-                          {editingInstitution ? (
-                            <Input
-                              value={institutionInput}
-                              onChange={(e) =>
-                                setInstitutionInput(e.target.value)
-                              }
-                              placeholder="Özel eğitim kurumu adı"
-                              onBlur={() => {
-                                setInstitutionId(institutionInput);
-                                setEditingInstitution(false);
-                              }}
-                            />
-                          ) : (
-                            <Select
-                              size="large"
-                              placeholder="Ali təhsil müəssisəsi seçin"
-                              allowClear
-                              onChange={handleInstitutionChange}
-                              value={institutionId}
-                            >
-                              {institutions.map((institution) => (
-                                <Option
-                                  key={institution.id}
-                                  value={institution.id}
-                                >
-                                  {institution.name}
-                                </Option>
-                              ))}
-                              <Option value="other">Diger</Option>
-                            </Select>
-                          )}
-                        </Form.Item>
-                      </div>
-
-                      <div className="form-item">
-                        <Form.Item
-                          rules={[
-                            {
-                              required: true,
-                              message: "Proqram səviyyəsi boş buraxıla bilməz!",
-                            },
-                          ]}
-                          label="İxtisas/proqram"
-                          validateTrigger="onChange"
-                          name="educational_program_id"
-                        >
-                          {editingProgram ? (
-                            <Input
-                              value={programInput}
-                              onChange={(e) => setProgramInput(e.target.value)}
-                              placeholder="Özel program adı"
-                              onBlur={() => {
-                                setProgramId(programInput);
-                                setEditingProgram(false);
-                              }}
-                            />
-                          ) : (
-                            <Select
-                              size="large"
-                              placeholder="Proqram seçin"
-                              allowClear
-                              onChange={handleProgramChange}
-                              value={programId}
-                            >
-                              {programs.map((program) => (
-                                <Option key={program.id} value={program.id}>
-                                  {program.name}
-                                </Option>
-                              ))}
-                              <Option value="other">Diger</Option>
-                            </Select>
-                          )}
-                        </Form.Item>
-                      </div>
-
-                      {eduLevel && (
-                        <div>
-                          <h3 className="section-title">Sənədlər</h3>
-                          <h4 className="level-cap">
-                            {eduLevel === 1
-                              ? "Bakalavriat səviyyəsi üzrə:"
-                              : "Magistratura səviyyəsi üzrə:"}
-                          </h4>
-
-                          {currentItems.map((item, index) => (
-                            <div key={index} className={`form-item`}>
-                              <Form.Item
-                                rules={[
-                                  {
-                                    required: true,
-                                    message: "Ad boş buraxıla bilməz!",
-                                  },
-                                ]}
-                                label={item.label}
-                                validateTrigger="onChange"
-                              >
-                                <Upload
-                                  {...props}
-                                  listType="picture"
-                                  maxCount={1}
-                                >
-                                  <Button icon={<UploadOutlined />}>
-                                    Əlavə et
-                                  </Button>
-                                </Upload>
-                              </Form.Item>
-                            </div>
-                          ))}
-
-                          <h3 className="section-title">
-                            Müəssisə və ixtisas/proqram seçimi:
-                          </h3>
-                        </div>
-                      )}
-
-                      <div className="form-footer">
-                        <div className="form-footer">
-                          <Button type="primary" htmlType="submit">
-                            Göndər
-                          </Button>
-                        </div>
-                      </div>
-                    </>
-                  )}
+                <div className="form-footer">
+                  <div className="form-footer">
+                    <Button loading={loading} type="primary" htmlType="submit">
+                      Göndər
+                    </Button>
+                  </div>
                 </div>
-              </Form>
+              </>
             )}
           </div>
-        )}
-      </div>
-    </>
+        </Form>
+      )}
+    </div>
   );
 };
 
