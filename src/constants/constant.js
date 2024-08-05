@@ -102,22 +102,27 @@ export const items = [
     level: 1,
     steps: [
       {
+        id: 1,
         label:
           "Namizədin cari tədris ilində ümumtəhsil müəssisələrinin buraxılış sinfində (XI sinif və ya xaricdə təhsil aldıqda müvafiq buraxılış sinfi) təhsil almasını təsdiq edən arayış və ya tam orta təhsil və ya orta ixtisas təhsili haqqında dövlət sənədinin surəti",
       },
       {
+        id: 2,
         label:
           "Namizədin xarici ali təhsil müəssisəsinə qəbul edildiyini və ya xarici ali təhsil müəssisəsində təhsil aldığını təsdiq edən sənədin (ingilis, rus və türk dillərindən başqa digər dillərdə olan sənədlərin notariat qaydasında təsdiq edilmiş Azərbaycan dilinə tərcüməsi) surəti",
       },
       {
+        id: 3,
         label:
           "Namizədin təhsil alacağı xarici ali təhsil müəssisəsinin tədris dilini bilməsinə dair beynəlxalq səviyyəli dil sertifikatının surəti və ya öncəki təhsilini təhsil alacağı xarici dildə almasını təsdiq edən sənədin surəti",
       },
       {
+        id: 4,
         label:
           "Namizədin beynəlxalq təhsil proqramları üzrə müəyyən edilmiş keçid ballarının minimum və maksimum hədləri aralığında (minimum və maksimum bal daxil olmaqla) göstəricisini təsdiq edən müvafiq təhsil müəssisəsindən arayışın surəti",
       },
       {
+        id: 5,
         label: "Namizədin sağlamlığı haqqında arayış (forma AZS086/1)",
       },
     ],
@@ -126,29 +131,36 @@ export const items = [
     level: 2,
     steps: [
       {
+        id: 1,
         label:
           "Namizədin cari tədris ilində ali təhsil müəssisəsinin sonuncu tədris ilində təhsil almasını təsdiq edən arayış və ya bakalavr ali peşə-ixtisas dərəcəsi haqqında dövlət sənədinin surəti",
       },
       {
+        id: 2,
         label:
           "Namizədin xarici ali təhsil müəssisəsinə qəbul edildiyini və ya xarici ali təhsil müəssisəsində təhsil aldığını təsdiq edən sənədin (ingilis, rus və türk dillərindən başqa digər dillərdə olan sənədlərin notariat qaydasında təsdiq edilmiş Azərbaycan dilinə tərcüməsi) surəti",
       },
       {
+        id: 3,
         label:
           "Bakalavriat səviyyəsi üzrə xarici ali təhsilə aid kvalifikasiyanın tanınmasına dair şəhadətnamənin (xaricdə ali təhsil aldıqda) surəti",
       },
       {
+        id: 4,
         label:
           "Namizədin xarici ali təhsil müəssisəsində təhsil alma bacarıqları barədə rəyi özündə ehtiva edən ali təhsil müəssisəsi və ya elmi müəssisə və təşkilatda çalışan professor-müəllim heyətinin ən azı 2 (iki) üzvü tərəfindən verilmiş tövsiyə məktubunun (namizəd əmək fəaliyyəti ilə məşğul olduğu halda, məktublardan biri onun işəgötürəni tərəfindən təqdim edilə bilər) əsli və ya surəti",
       },
       {
+        id: 5,
         label:
           "Namizədin təhsil alacağı xarici ali təhsil müəssisəsinin tədris dilini bilməsinə dair beynəlxalq səviyyəli dil sertifikatının surəti və ya öncəki təhsilini təhsil alacağı xarici dildə almasını təsdiq edən sənədin surəti",
       },
       {
+        id: 6,
         label: "Namizədin transkriptinin (ÜOMG göstərilməklə) surəti",
       },
       {
+        id: 7,
         label: "Namizədin sağlamlığı haqqında arayış (forma AZS-086/1)",
       },
     ],

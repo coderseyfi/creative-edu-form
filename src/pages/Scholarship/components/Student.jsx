@@ -44,6 +44,8 @@ const Student = ({ onFormSubmit }) => {
   const [countryInput, setCountryInput] = useState("");
   const [institutionInput, setInstitutionInput] = useState("");
   const [programInput, setProgramInput] = useState("");
+  const [fileTypeCounter, setFileTypeCounter] = useState(1);
+  const [activeIndex, setActiveIndex] = useState(1);
 
   const [able, setAble] = useState(false);
 
@@ -54,26 +56,66 @@ const Student = ({ onFormSubmit }) => {
     return current && current > dayjs().endOf("day");
   };
 
-  const props = {
+  const currentItems =
+    items.find((item) => item.level === eduLevel)?.steps || [];
+
+  console.log(currentItems);
+
+  const getUploadProps = (itemId) => ({
     name: "file",
     action: "https://backendedu.creative.az/api/upload/files",
     onChange(info) {
       if (info.file.status === "done") {
         const fileInfo = info.file.response;
         const newFile = {
-          uid: fileInfo.id,
-          name: info.file.name,
-          status: "done",
-          url: fileInfo.storage_path, // Backend'den dönen dosya URL'si
+          file_uuid: fileInfo.id,
+          file_path: fileInfo.storage_path,
+          type: fileTypeCounter,
         };
+
+        console.log(itemId);
+        setUploadedFiles((prevFiles) => [...prevFiles, newFile]);
+        message.success(`${info.file.name} file uploaded successfully`);
+
+        setFileTypeCounter((prevCounter) => prevCounter + 1);
+
+        currentItems.map((item) => {
+          console.log(item.id);
+          console.log(itemId);
+
+          if (item.id === itemId) {
+            console.log(item.id + 1);
+
+            setActiveIndex(item.id + 1);
+          }
+        });
+      } else if (info.file.status === "error") {
+        message.error(`${info.file.name} file upload failed.`);
+      }
+    },
+    defaultFileList: uploadedFiles.filter((file) => file.itemId === itemId),
+  });
+
+  const getMultipleUploadProps = () => ({
+    name: "file",
+    action: "https://backendedu.creative.az/api/upload/files",
+    onChange(info) {
+      if (info.file.status === "done") {
+        const fileInfo = info.file.response;
+        const newFile = {
+          file_uuid: fileInfo.id,
+          file_path: fileInfo.storage_path,
+          type: 0,
+        };
+
         setUploadedFiles((prevFiles) => [...prevFiles, newFile]);
         message.success(`${info.file.name} file uploaded successfully`);
       } else if (info.file.status === "error") {
         message.error(`${info.file.name} file upload failed.`);
       }
     },
-    defaultFileList: uploadedFiles,
-  };
+    defaultFileList: uploadedFiles.filter((file) => file.itemId === undefined),
+  });
 
   const onSubmit = async (data) => {
     console.log(data);
@@ -93,6 +135,7 @@ const Student = ({ onFormSubmit }) => {
       setFormSubmitted(true);
       message.success("Müraciət uğurla göndərildi");
     } catch (error) {
+      console.log(error);
       Swal.fire({
         title: "Xəta!",
         html: Object.entries(error.response.data.data)
@@ -164,19 +207,11 @@ const Student = ({ onFormSubmit }) => {
     }
   };
 
-  const currentItems =
-    items.find((item) => item.level === eduLevel)?.steps || [];
-
   useEffect(() => {
     const fetchCountries = async () => {
       try {
         const response = await instance.get(
-          "/scholarship-programs-appeal/select-list/countries",
-          {
-            params: {
-              education_level_id: eduLevel,
-            },
-          }
+          "/scholarship-programs-appeal/select-list/countries"
         );
         setCountries(response.data.data);
       } catch (error) {
@@ -184,10 +219,8 @@ const Student = ({ onFormSubmit }) => {
       }
     };
 
-    if (eduLevel) {
-      fetchCountries();
-    }
-  }, [eduLevel]);
+    fetchCountries();
+  }, []);
 
   useEffect(() => {
     const fetchInstitutions = async (selectedCountryId) => {
@@ -224,6 +257,7 @@ const Student = ({ onFormSubmit }) => {
             {
               params: {
                 institution_id: selectedInstitutionId,
+                education_level_id: eduLevel,
               },
             }
           );
@@ -237,7 +271,7 @@ const Student = ({ onFormSubmit }) => {
     if (typeof institutionId === "number") {
       fetchPrograms(institutionId);
     }
-  }, [institutionId]);
+  }, [institutionId, eduLevel]);
 
   return (
     <div className="form-area">
@@ -304,6 +338,22 @@ const Student = ({ onFormSubmit }) => {
                     name="last_name"
                   >
                     <Input size="large" placeholder="Soyad daxil edin" />
+                  </Form.Item>
+                </div>
+
+                <div className="form-item">
+                  <Form.Item
+                    rules={[
+                      {
+                        required: true,
+                        message: "Ata adı boş buraxıla bilməz!",
+                      },
+                    ]}
+                    label="Ata adı"
+                    validateTrigger="onChange"
+                    name="father_name"
+                  >
+                    <Input size="large" placeholder="Ata adı daxil edin" />
                   </Form.Item>
                 </div>
 
@@ -601,7 +651,12 @@ const Student = ({ onFormSubmit }) => {
                     </h4>
 
                     {currentItems.map((item, index) => (
-                      <div key={index} className={`form-item`}>
+                      <div
+                        key={index}
+                        className={`form-item ${
+                          item.id <= activeIndex ? "" : "disabled"
+                        }`}
+                      >
                         <Form.Item
                           rules={[
                             {
@@ -612,12 +667,44 @@ const Student = ({ onFormSubmit }) => {
                           label={item.label}
                           validateTrigger="onChange"
                         >
-                          <Upload {...props} listType="picture" maxCount={1}>
+                          <Upload
+                            {...getUploadProps(item.id)}
+                            listType="picture"
+                            maxCount={1}
+                          >
                             <Button icon={<UploadOutlined />}>Əlavə et</Button>
                           </Upload>
                         </Form.Item>
                       </div>
                     ))}
+                  </div>
+                )}
+
+                {eduLevel && (
+                  <div>
+                    <div className={`form-item`}>
+                      <Form.Item
+                        rules={[
+                          {
+                            required: true,
+                            message: "Fayl əlavə edilməlidir!",
+                          },
+                        ]}
+                        label={
+                          "Namizədin özünün ərsəyə gətirdiyi MYS məhsulu olduğu halda foto və video materiallar, sahibkarlıq (o cümlədən startap) fəaliyyəti ilə məşğul olduğu halda, VÖEN, startap şəhadətnaməsi (olduğu halda) və digər təsdiqedici materiallar"
+                        }
+                        validateTrigger="onChange"
+                      >
+                        <Upload
+                          {...getMultipleUploadProps()}
+                          listType="picture"
+                          multiple
+                          maxCount={Infinity}
+                        >
+                          <Button icon={<UploadOutlined />}>Əlavə et</Button>
+                        </Upload>
+                      </Form.Item>
+                    </div>
                   </div>
                 )}
 
