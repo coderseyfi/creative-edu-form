@@ -59,7 +59,7 @@ const Student = ({ onFormSubmit }) => {
   const currentItems =
     items.find((item) => item.level === eduLevel)?.steps || [];
 
-  console.log(currentItems);
+  console.log("UPLOADED FILES", uploadedFiles);
 
   const getUploadProps = (itemId) => ({
     name: "file",
@@ -80,9 +80,6 @@ const Student = ({ onFormSubmit }) => {
         setFileTypeCounter((prevCounter) => prevCounter + 1);
 
         currentItems.map((item) => {
-          console.log(item.id);
-          console.log(itemId);
-
           if (item.id === itemId) {
             console.log(item.id + 1);
 
@@ -672,7 +669,9 @@ const Student = ({ onFormSubmit }) => {
                             listType="picture"
                             maxCount={1}
                           >
-                            <Button icon={<UploadOutlined />}>Əlavə et</Button>
+                            <Button icon={<UploadOutlined />}>
+                              Əlavə edin
+                            </Button>
                           </Upload>
                         </Form.Item>
                       </div>
@@ -701,7 +700,9 @@ const Student = ({ onFormSubmit }) => {
                           multiple
                           maxCount={Infinity}
                         >
-                          <Button icon={<UploadOutlined />}>Əlavə et</Button>
+                          <Button icon={<UploadOutlined />}>
+                            Faylları əlavə edin
+                          </Button>
                         </Upload>
                       </Form.Item>
                     </div>
